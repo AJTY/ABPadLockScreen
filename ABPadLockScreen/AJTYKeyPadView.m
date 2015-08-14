@@ -374,20 +374,8 @@
 	if(self.isComplexPin)
 	{
 		CGFloat textFieldWidth = self.frame.size.width - 88;
-
-//CGRectMake(<#CGFloat x#>, <#CGFloat y#>, <#CGFloat width#>, <#CGFloat height#>)
-
-
         _digitsTextField.frame = CGRectMake((self.correctWidth / 2) - (textFieldWidth / 2), self.frame.origin.y + 44, textFieldWidth, 50);
-
-
         [self.contentView addSubview:_digitsTextField];
-		
-//		_okButton.frame = CGRectMake(self.frame.size.width - 40,
-//                                     pinSelectionTop - 7.5f,
-//                                     (self.correctWidth - _digitsTextField.frame.size.width) / 2 - 10,
-//                                     30);
-
         _okButton.frame = CGRectMake(_digitsTextField.frame.origin.x + _digitsTextField.frame.size.width + 10,
                                      (_digitsTextField.frame.origin.y + _digitsTextField.frame.size.height) / 2,
                                      _digitsTextField.frame.size.height,
