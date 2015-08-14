@@ -130,7 +130,7 @@
 - (void)setLockScreenTitle:(NSString *)title
 {
     self.title = title;
-    lockScreenView.enterPasscodeLabel.text = title;
+
 }
 
 - (void)setSubtitleText:(NSString *)text
@@ -140,7 +140,7 @@
 
 - (void)setEnterPasscodeLabelText:(NSString *)text
 {
-    lockScreenView.enterPasscodeLabel.text = text;
+
 }
 
 - (void)setBackgroundView:(UIView *)backgroundView

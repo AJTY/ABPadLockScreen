@@ -67,7 +67,7 @@
     {
         [self setDefaultStyles];
 
-        self.enterPasscodeLabel.text = @"test";
+
 		_contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, MIN(frame.size.height, 568.0f))];
 		_contentView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
 		_contentView.center = self.center;
@@ -75,8 +75,7 @@
         
         _requiresRotationCorrection = NO;
         
-        _enterPasscodeLabel = [self standardLabel];
-        _enterPasscodeLabel.text = NSLocalizedString(@"Enter Passcode", @"");
+
         
         _detailLabel = [self standardLabel];
         
@@ -179,7 +178,7 @@
     
     self.detailLabel.text = string;
 
-	CGFloat pinSelectionTop = self.enterPasscodeLabel.frame.origin.y + self.enterPasscodeLabel.frame.size.height + 17.5;
+	CGFloat pinSelectionTop = self.digitsTextField.frame.origin.y + self.digitsTextField.frame.size.height + 17.5;
 	
     self.detailLabel.frame = CGRectMake(([self correctWidth]/2) - 150, pinSelectionTop + 30, 300, 23);
 }
@@ -328,8 +327,7 @@
 
 - (void)prepareAppearance
 {
-    self.enterPasscodeLabel.textColor = self.labelColor;
-    self.enterPasscodeLabel.font = self.enterPasscodeLabelFont;
+
     
 	self.digitsTextField.textColor = [(AJTYKeyPadButton*)self.buttonZero borderColor];
 	self.digitsTextField.layer.borderColor = [(AJTYKeyPadButton*)self.buttonZero borderColor].CGColor;
@@ -365,11 +363,9 @@
 		top = NSFoundationVersionNumber <= NSFoundationVersionNumber_iOS_6_1 ? 30 : 80;;
 	}
 	
-    self.enterPasscodeLabel.frame = CGRectMake(([self correctWidth]/2) - 150, top, 300, 23);
-#warning remove completely!!
-    //    [self.contentView addSubview:self.enterPasscodeLabel];
 
-	CGFloat pinSelectionTop = self.enterPasscodeLabel.frame.origin.y + self.enterPasscodeLabel.frame.size.height + 17.5;
+
+	CGFloat pinSelectionTop = self.frame.origin.y + self.frame.size.height + 17.5;
 
 	if(self.isComplexPin)
 	{

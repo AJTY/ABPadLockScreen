@@ -33,7 +33,7 @@
 
 @property (nonatomic, strong) UIView* backgroundView;
 
-@property (nonatomic, strong, readonly) UILabel  *enterPasscodeLabel;
+
 @property (nonatomic, strong, readonly) UILabel  *detailLabel;
 
 @property (nonatomic, strong, readonly) UIButton *buttonOne;
