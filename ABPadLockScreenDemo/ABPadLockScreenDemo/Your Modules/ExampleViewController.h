@@ -8,7 +8,11 @@
 
 #import "ABPadLockScreenViewController.h"
 #import "ABPadLockScreenSetupViewController.h"
+#import "AJTYKeyPadViewController.h"
+#import "AJTYKeyPadView.h"
+#import "AJTYKeyPadAbstractViewController.h"
 
-@interface ExampleViewController : UIViewController <ABPadLockScreenViewControllerDelegate, ABPadLockScreenSetupViewControllerDelegate>
+
+@interface ExampleViewController : UIViewController <ABPadLockScreenViewControllerDelegate, ABPadLockScreenSetupViewControllerDelegate, AJTYKeyPadViewControllerDelegate>
 
 @end

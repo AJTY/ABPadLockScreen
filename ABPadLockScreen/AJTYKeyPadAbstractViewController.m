@@ -8,12 +8,15 @@
 
 #import "AJTYKeyPadAbstractViewController.h"
 
-#import "ABPadLockScreenAbstractViewController.h"
-#import "ABPadLockScreenView.h"
+//#import "ABPadLockScreenAbstractViewController.h"
+//#import "ABPadLockScreenView.h"
+#import "AJTYKeyPadAbstractViewController.h"
+#import "AJTYKeyPadView.h"
+
 #import "ABPinSelectionView.h"
 #import <AudioToolbox/AudioToolbox.h>
 
-#define lockScreenView ((ABPadLockScreenView *) [self view])
+#define lockScreenView ((AJTYKeyPadView *) [self view])
 
 @interface AJTYKeyPadAbstractViewController ()
 
@@ -68,7 +71,7 @@
         }
     }
 
-    self.view = [[ABPadLockScreenView alloc] initWithFrame:bounds complexPin:self.isComplexPin];
+    self.view = [[AJTYKeyPadView alloc] initWithFrame:bounds complexPin:self.isComplexPin];
 
     [self setUpButtonMapping];
     [lockScreenView.cancelButton addTarget:self action:@selector(cancelButtonSelected:) forControlEvents:UIControlEventTouchUpInside];

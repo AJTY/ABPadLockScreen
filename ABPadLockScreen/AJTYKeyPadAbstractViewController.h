@@ -6,16 +6,16 @@
 //  Copyright (c) 2015 Aron Bury. All rights reserved.
 //
 
-@protocol ABPadLockScreenDelegate;
-@class ABPadLockScreenView;
+@protocol AJTYKeyPadViewDelegate;
+@class AJTYKeyPadView;
 
 @interface AJTYKeyPadAbstractViewController : UIViewController
 {
-    ABPadLockScreenView* lockScreenView;
+    AJTYKeyPadView* lockScreenView;
 }
 
 @property (nonatomic, strong) NSString *currentPin;
-@property (nonatomic, weak) id<ABPadLockScreenDelegate> delegate;
+@property (nonatomic, weak) id<AJTYKeyPadViewDelegate> delegate;
 @property (nonatomic, readonly, getter = isComplexPin) BOOL complexPin;
 @property (nonatomic, assign) BOOL tapSoundEnabled; //No by Default
 @property (nonatomic, assign) BOOL errorVibrateEnabled; //No by Default
@@ -39,7 +39,7 @@
 
 @end
 
-@protocol ABPadLockScreenDelegate <NSObject>
+@protocol AJTYKeyPadViewDelegate <NSObject>
 @required
 - (void)unlockWasCancelledForPadLockScreenViewController:(AJTYKeyPadAbstractViewController *)padLockScreenViewController;
 

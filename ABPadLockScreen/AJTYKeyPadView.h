@@ -52,6 +52,14 @@
 
 @property (nonatomic, strong, readonly) UIButton *buttonZero;
 
+@property (nonatomic, strong, readonly) UIButton *buttonHash;
+@property (nonatomic, strong, readonly) UIButton *buttonStar;
+@property (nonatomic, strong, readonly) UIButton *buttonCall;
+
+
+
+
+
 @property (nonatomic, strong, readonly) UIButton *cancelButton;
 @property (nonatomic, strong, readonly) UIButton *deleteButton;
 

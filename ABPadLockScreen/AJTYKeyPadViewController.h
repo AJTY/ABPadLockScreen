@@ -7,8 +7,8 @@
 //
 
 
-#import "ABPadLockScreenAbstractViewController.h"
-
+//#import "ABPadLockScreenAbstractViewController.h"
+#import "AJTYKeyPadAbstractViewController.h"
 /**
  The ABPadLockScreenViewController presents a full screen pin to the user.
  Classess simply need to register as a delegate and implement the ABPadLockScreenViewControllerDelegate Protocol to recieve callbacks
@@ -16,14 +16,14 @@
 
  You are responsible for storing the pin securely (use the keychain or some other form of secure storage, DO NOT STORE IN PLAINTEXT. If you need the user to set a pin, please use ABPadLockScreenSetupViewController
  */
-@class ABPadLockScreenViewController;
-@protocol ABPadLockScreenViewControllerDelegate;
+@class AJTYKeyPadViewController;
+@protocol AJTYKeyPadViewControllerDelegate;
 
-@interface AJTYKeyPadViewController : ABPadLockScreenAbstractViewController
+@interface AJTYKeyPadViewController : AJTYKeyPadAbstractViewController
 
-- (instancetype)initWithDelegate:(id<ABPadLockScreenViewControllerDelegate>)delegate complexPin:(BOOL)complexPin;
+- (instancetype)initWithDelegate:(id<AJTYKeyPadViewControllerDelegate>)delegate complexPin:(BOOL)complexPin;
 
-@property (nonatomic, weak, readonly) id<ABPadLockScreenViewControllerDelegate> lockScreenDelegate;
+@property (nonatomic, weak, readonly) id<AJTYKeyPadViewControllerDelegate> lockScreenDelegate;
 @property (nonatomic, assign, readonly) NSInteger totalAttempts;
 @property (nonatomic, assign, readonly) NSInteger remainingAttempts;
 
@@ -35,33 +35,33 @@
 
 @end
 
-@protocol ABPadLockScreenViewControllerDelegate <ABPadLockScreenDelegate>
+@protocol AJTYKeyPadViewControllerDelegate <AJTYKeyPadViewDelegate>
 @required
 
 /**
  Called when pin validation is needed
  */
-- (BOOL)padLockScreenViewController:(ABPadLockScreenViewController *)padLockScreenViewController validatePin:(NSString*)pin;
+- (BOOL)padLockScreenViewController:(AJTYKeyPadViewController *)padLockScreenViewController validatePin:(NSString*)pin;
 
 /**
  Called when the unlock was completed successfully
  */
-- (void)unlockWasSuccessfulForPadLockScreenViewController:(ABPadLockScreenViewController *)padLockScreenViewController;
+- (void)unlockWasSuccessfulForPadLockScreenViewController:(AJTYKeyPadViewController *)padLockScreenViewController;
 
 /**
  Called when an unlock was unsuccessfully, providing the entry code and the attempt number
  */
-- (void)unlockWasUnsuccessful:(NSString *)falsePin afterAttemptNumber:(NSInteger)attemptNumber padLockScreenViewController:(ABPadLockScreenViewController *)padLockScreenViewController;
+- (void)unlockWasUnsuccessful:(NSString *)falsePin afterAttemptNumber:(NSInteger)attemptNumber padLockScreenViewController:(AJTYKeyPadViewController *)padLockScreenViewController;
 
 /**
  Called when the user cancels the unlock
  */
-- (void)unlockWasCancelledForPadLockScreenViewController:(ABPadLockScreenViewController *)padLockScreenViewController;
+- (void)unlockWasCancelledForPadLockScreenViewController:(AJTYKeyPadViewController *)padLockScreenViewController;
 
 @optional
 /**
  Called when the user has expired their attempts
  */
-- (void)attemptsExpiredForPadLockScreenViewController:(ABPadLockScreenViewController *)padLockScreenViewController;
+- (void)attemptsExpiredForPadLockScreenViewController:(AJTYKeyPadViewController *)padLockScreenViewController;
 
 @end

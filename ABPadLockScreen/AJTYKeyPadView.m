@@ -21,7 +21,7 @@
 // THE SOFTWARE.
 
 #import "AJTYKeyPadView.h"
-#import "ABPadButton.h"
+#import "AJTYKeyPadButton.h"
 #import "ABPinSelectionView.h"
 
 #define animationLength 0.15
@@ -81,7 +81,8 @@
     if (self)
     {
         [self setDefaultStyles];
-		
+        self.cancelButtonDisabled = YES;
+        self.enterPasscodeLabel.text = @"test";
 		_contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, MIN(frame.size.height, 568.0f))];
 		_contentView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
 		_contentView.center = self.center;
@@ -94,20 +95,25 @@
         
         _detailLabel = [self standardLabel];
         
-        _buttonOne = [[ABPadButton alloc] initWithFrame:CGRectZero number:1 letters:nil];
-        _buttonTwo = [[ABPadButton alloc] initWithFrame:CGRectZero number:2 letters:@"ABC"];
-        _buttonThree = [[ABPadButton alloc] initWithFrame:CGRectZero number:3 letters:@"DEF"];
+        _buttonOne = [[AJTYKeyPadButton alloc] initWithFrame:CGRectZero number:1 letters:nil];
+        _buttonTwo = [[AJTYKeyPadButton alloc] initWithFrame:CGRectZero number:2 letters:@"ABC"];
+        _buttonThree = [[AJTYKeyPadButton alloc] initWithFrame:CGRectZero number:3 letters:@"DEF"];
         
-        _buttonFour = [[ABPadButton alloc] initWithFrame:CGRectZero number:4 letters:@"GHI"];
-        _buttonFive = [[ABPadButton alloc] initWithFrame:CGRectZero number:5 letters:@"JKL"];
-        _buttonSix = [[ABPadButton alloc] initWithFrame:CGRectZero number:6 letters:@"MNO"];
+        _buttonFour = [[AJTYKeyPadButton alloc] initWithFrame:CGRectZero number:4 letters:@"GHI"];
+        _buttonFive = [[AJTYKeyPadButton alloc] initWithFrame:CGRectZero number:5 letters:@"JKL"];
+        _buttonSix = [[AJTYKeyPadButton alloc] initWithFrame:CGRectZero number:6 letters:@"MNO"];
         
-        _buttonSeven = [[ABPadButton alloc] initWithFrame:CGRectZero number:7 letters:@"PQRS"];
-        _buttonEight = [[ABPadButton alloc] initWithFrame:CGRectZero number:8 letters:@"TUV"];
-        _buttonNine = [[ABPadButton alloc] initWithFrame:CGRectZero number:9 letters:@"WXYZ"];
+        _buttonSeven = [[AJTYKeyPadButton alloc] initWithFrame:CGRectZero number:7 letters:@"PQRS"];
+        _buttonEight = [[AJTYKeyPadButton alloc] initWithFrame:CGRectZero number:8 letters:@"TUV"];
+        _buttonNine = [[AJTYKeyPadButton alloc] initWithFrame:CGRectZero number:9 letters:@"WXYZ"];
         
-        _buttonZero = [[ABPadButton alloc] initWithFrame:CGRectZero number:0 letters:nil];
-        
+        _buttonHash = [[AJTYKeyPadButton alloc]initWithFrame:CGRectZero numberString:@"#" letters:nil];
+        _buttonZero = [[AJTYKeyPadButton alloc] initWithFrame:CGRectZero number:0 letters:@"+"];
+        _buttonStar = [[AJTYKeyPadButton alloc]initWithFrame:CGRectZero numberString:@"*" letters:nil];
+
+
+        _buttonCall = [[AJTYKeyPadButton alloc]initWithFrame:CGRectZero number:10 letters:@"CALL"];
+
 		UIButtonType buttonType = UIButtonTypeSystem;
 		if(NSFoundationVersionNumber <= NSFoundationVersionNumber_iOS_6_1)
 		{
@@ -147,7 +153,8 @@
 #pragma mark - Public Methods
 - (NSArray *)buttonArray
 {
-    return @[self.buttonZero,
+    return @[self.buttonCall,
+             self.buttonHash,self.buttonZero, self.buttonStar,
              self.buttonOne, self.buttonTwo, self.buttonThree,
              self.buttonFour, self.buttonFive, self.buttonSix,
              self.buttonSeven, self.buttonEight, self.buttonNine];
@@ -370,8 +377,8 @@
     self.enterPasscodeLabel.textColor = self.labelColor;
     self.enterPasscodeLabel.font = self.enterPasscodeLabelFont;
     
-	self.digitsTextField.textColor = [(ABPadButton*)self.buttonZero borderColor];
-	self.digitsTextField.layer.borderColor = [(ABPadButton*)self.buttonZero borderColor].CGColor;
+	self.digitsTextField.textColor = [(AJTYKeyPadButton*)self.buttonZero borderColor];
+	self.digitsTextField.layer.borderColor = [(AJTYKeyPadButton*)self.buttonZero borderColor].CGColor;
 	
 	[self updatePinTextfieldWithLength:0];
 	
@@ -411,16 +418,24 @@
 	}
 	
     self.enterPasscodeLabel.frame = CGRectMake(([self correctWidth]/2) - 150, top, 300, 23);
-    [self.contentView addSubview:self.enterPasscodeLabel];
-	
+#warning remove completely!!
+    //    [self.contentView addSubview:self.enterPasscodeLabel];
+
 	CGFloat pinSelectionTop = self.enterPasscodeLabel.frame.origin.y + self.enterPasscodeLabel.frame.size.height + 17.5;
 
 	if(self.isComplexPin)
 	{
-		CGFloat textFieldWidth = 152;
-		_digitsTextField.frame = CGRectMake((self.correctWidth / 2) - (textFieldWidth / 2), pinSelectionTop - 7.5f, textFieldWidth, 30);
-		
-		[self.contentView addSubview:_digitsTextField];
+		CGFloat textFieldWidth = self.contentView.frame.size.width - 10;
+
+//		_digitsTextField.frame = CGRectMake((self.correctWidth / 2) - (textFieldWidth / 2), pinSelectionTop - 7.5f, textFieldWidth, 50);
+
+//CGRectMake(<#CGFloat x#>, <#CGFloat y#>, <#CGFloat width#>, <#CGFloat height#>)
+
+
+        _digitsTextField.frame = CGRectMake((self.correctWidth / 2) - (textFieldWidth / 2), self.contentView.frame.origin.y + 44, textFieldWidth, 50);
+
+
+        [self.contentView addSubview:_digitsTextField];
 		
 		_okButton.frame = CGRectMake(_digitsTextField.frame.origin.x + _digitsTextField.frame.size.width + 10, pinSelectionTop - 7.5f, (self.correctWidth - _digitsTextField.frame.size.width) / 2 - 10, 30);
 		
@@ -439,7 +454,7 @@
 		}
 	}
 	
-    self.detailLabel.frame = CGRectMake(([self correctWidth]/2) - 150, pinSelectionTop + 30, 300, 23);
+    self.detailLabel.frame = CGRectMake(([self correctWidth]/2) - 150, self.digitsTextField.frame.origin.y + self.digitsTextField.frame.size.height + 10, 300, 23);
     [self.contentView addSubview:self.detailLabel];
 }
 
@@ -453,14 +468,15 @@
     CGFloat lefButtonLeft = ([self correctWidth]/2) - (buttonRowWidth/2) + 0.5;
     CGFloat centerButtonLeft = lefButtonLeft + ABPadButtonWidth + horizontalButtonPadding;
     CGFloat rightButtonLeft = centerButtonLeft + ABPadButtonWidth + horizontalButtonPadding;
-    
-    CGFloat topRowTop = self.detailLabel.frame.origin.y + self.detailLabel.frame.size.height + 15;
+    #warning 0
+    CGFloat topRowTop = self.detailLabel.frame.origin.y + self.detailLabel.frame.size.height + 0;
     
     if (!IS_IPHONE5) topRowTop = self.detailLabel.frame.origin.y + self.detailLabel.frame.size.height + 10;
     
     CGFloat middleRowTop = topRowTop + ABPadButtonHeight + verticalButtonPadding;
     CGFloat bottomRowTop = middleRowTop + ABPadButtonHeight + verticalButtonPadding;
     CGFloat zeroRowTop = bottomRowTop + ABPadButtonHeight + verticalButtonPadding;
+    CGFloat callRowTop = zeroRowTop + ABPadButtonHeight + verticalButtonPadding;
     
     [self setUpButton:self.buttonOne left:lefButtonLeft top:topRowTop];
     [self setUpButton:self.buttonTwo left:centerButtonLeft top:topRowTop];
@@ -475,6 +491,10 @@
     [self setUpButton:self.buttonNine left:rightButtonLeft top:bottomRowTop];
     
     [self setUpButton:self.buttonZero left:centerButtonLeft top:zeroRowTop];
+    [self setUpButton:self.buttonHash left:lefButtonLeft top:zeroRowTop];
+    [self setUpButton:self.buttonStar left:rightButtonLeft top:zeroRowTop];
+
+    [self setUpButton:self.buttonCall left:centerButtonLeft top:callRowTop];
     
 	CGRect deleteCancelButtonFrame = CGRectMake(rightButtonLeft, zeroRowTop + ABPadButtonHeight + 25, ABPadButtonWidth, 20);
 	if(!IS_IPHONE5)

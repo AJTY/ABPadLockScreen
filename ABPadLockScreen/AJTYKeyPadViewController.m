@@ -7,12 +7,12 @@
 //
 
 #import "AJTYKeyPadViewController.h"
-#import "ABPadLockScreenViewController.h"
-#import "ABPadLockScreenView.h"
+#import "AJTYKeyPadViewController.h"
+#import "AJTYKeyPadView.h"
 #import "ABPinSelectionView.h"
 #import <AudioToolbox/AudioToolbox.h>
 
-#define lockScreenView ((ABPadLockScreenView *) [self view])
+#define lockScreenView ((AJTYKeyPadView *) [self view])
 
 @interface AJTYKeyPadViewController ()
 
@@ -31,7 +31,7 @@
 @implementation AJTYKeyPadViewController
 #pragma mark -
 #pragma mark - Init Methods
-- (instancetype)initWithDelegate:(id<ABPadLockScreenViewControllerDelegate>)delegate complexPin:(BOOL)complexPin
+- (instancetype)initWithDelegate:(id<AJTYKeyPadViewControllerDelegate>)delegate complexPin:(BOOL)complexPin
 {
     self = [super initWithComplexPin:complexPin];
     if (self)
