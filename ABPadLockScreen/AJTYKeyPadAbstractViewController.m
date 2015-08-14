@@ -22,7 +22,7 @@
 
 - (void)setUpButtonMapping;
 - (void)buttonSelected:(UIButton *)sender;
-- (void)cancelButtonSelected:(UIButton *)sender;
+
 - (void)deleteButtonSelected:(UIButton *)sender;
 - (void)okButtonSelected:(UIButton *)sender;
 
@@ -37,9 +37,8 @@
     self = [super init];
     if (self)
     {
-        _tapSoundEnabled = NO;
-        _errorVibrateEnabled = NO;
-        _currentPin = @"";
+        _tapSoundEnabled = YES;
+        _errorVibrateEnabled = YES;
         _complexPin = NO; //default to NO
     }
     return self;

@@ -3,7 +3,7 @@
 #import "AJTYKeyPadButton.h"
 #import "ABPinSelectionView.h"
 #import "ABPadButton.h"
-
+#import <AudioToolbox/AudioToolbox.h>
 #define animationLength 0.15
 #define IS_IPHONE5 ([UIScreen mainScreen].bounds.size.height==568)
 #define IS_IOS6_OR_LOWER (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1)
@@ -21,7 +21,7 @@
 - (void)layoutButtonArea;
 
 - (void)setUpButton:(UIButton *)button left:(CGFloat)left top:(CGFloat)top;
-- (void)setUpPinSelectionView:(ABPinSelectionView *)selectionView left:(CGFloat)left top:(CGFloat)top;
+
 - (void)performAnimations:(void (^)(void))animations animated:(BOOL)animated completion:(void (^)(BOOL finished))completion;
 - (CGFloat)correctWidth;
 - (CGFloat)correctHeight;
@@ -265,11 +265,14 @@
 
 - (void) deleteButtonAction:(id)sender
 {
+    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
     [self showDeleteButton:NO
               animated:YES
             completion:^(BOOL finished) {
                 _digitsTextField.text = @"";
                 [self animateFailureNotification];
+
+
             }];
 }
 
@@ -365,7 +368,7 @@
 	
 
 
-	CGFloat pinSelectionTop = self.frame.origin.y + self.frame.size.height + 17.5;
+
 
 	if(self.isComplexPin)
 	{
@@ -380,15 +383,8 @@
 	}
 	else
 	{
-		CGFloat pinPadding = 25;
-		CGFloat pinRowWidth = (ABPinSelectionViewWidth * SIMPLE_PIN_LENGTH) + (pinPadding * (SIMPLE_PIN_LENGTH - 1));
-		
-		CGFloat selectionViewLeft = ([self correctWidth]/2) - (pinRowWidth/2);
-		
-		for (ABPinSelectionView *view in self.digitsArray) {
-			[self setUpPinSelectionView:view  left:selectionViewLeft top:pinSelectionTop];
-			selectionViewLeft+=ABPinSelectionViewWidth + pinPadding;
-		}
+				
+
 	}
 	
     self.detailLabel.frame = CGRectMake(([self correctWidth]/2) - 150, self.digitsTextField.frame.origin.y + self.digitsTextField.frame.size.height + 10, 300, 23);
