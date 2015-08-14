@@ -181,7 +181,7 @@
 
     if(self.isComplexPin)
     {
-        [lockScreenView updatePinTextfieldWithLength:self.currentPin.length];
+//        [lockScreenView updatePinTextfieldWithLength:self.currentPin.length];
     }
     else
     {
@@ -195,7 +195,7 @@
 
         if(self.complexPin)
         {
-            [lockScreenView showOKButton:YES animated:YES completion:nil];
+            [lockScreenView showDeleteButton:YES animated:YES completion:nil];
         }
     }
     else if (!self.isComplexPin && [self.currentPin length] == SIMPLE_PIN_LENGTH)
@@ -216,7 +216,7 @@
 
     if(self.isComplexPin)
     {
-        [lockScreenView updatePinTextfieldWithLength:self.currentPin.length];
+//        [lockScreenView updatePinTextfieldWithLength:self.currentPin.length];
     }
     else
     {
@@ -227,7 +227,7 @@
     if ([self.currentPin length] == 0)
     {
 //        [lockScreenView showCancelButtonAnimated:YES completion:nil];
-        [lockScreenView showOKButton:NO animated:YES completion:nil];
+        [lockScreenView showDeleteButton:NO animated:YES completion:nil];
     }
 }
 

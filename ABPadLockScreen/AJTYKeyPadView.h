@@ -26,17 +26,15 @@
 
 @interface AJTYKeyPadView : UIView <UITextFieldDelegate>
 
-@property (nonatomic, strong) UIFont *enterPasscodeLabelFont UI_APPEARANCE_SELECTOR;
-@property (nonatomic, strong) UIFont *detailLabelFont UI_APPEARANCE_SELECTOR;
-@property (nonatomic, strong) UIFont *deleteCancelLabelFont UI_APPEARANCE_SELECTOR;
-@property (nonatomic, strong) UIColor *labelColor UI_APPEARANCE_SELECTOR;
+@property (nonatomic, strong) UIFont * enterPasscodeLabelFont UI_APPEARANCE_SELECTOR;
+@property (nonatomic, strong) UIFont * detailLabelFont        UI_APPEARANCE_SELECTOR;
+@property (nonatomic, strong) UIFont * deleteCancelLabelFont  UI_APPEARANCE_SELECTOR;
+@property (nonatomic, strong) UIColor *labelColor             UI_APPEARANCE_SELECTOR;
 
 @property (nonatomic, strong) UIView* backgroundView;
 
-
-
-@property (nonatomic, strong, readonly) UILabel *enterPasscodeLabel;
-@property (nonatomic, strong, readonly) UILabel *detailLabel;
+@property (nonatomic, strong, readonly) UILabel  *enterPasscodeLabel;
+@property (nonatomic, strong, readonly) UILabel  *detailLabel;
 
 @property (nonatomic, strong, readonly) UIButton *buttonOne;
 @property (nonatomic, strong, readonly) UIButton *buttonTwo;
@@ -56,11 +54,6 @@
 @property (nonatomic, strong, readonly) UIButton *buttonStar;
 @property (nonatomic, strong, readonly) UIButton *buttonCall;
 
-
-
-
-
-
 @property (nonatomic, strong, readonly) UIButton *okButton;
 
 /*
@@ -76,7 +69,7 @@
 @property (nonatomic, strong, readonly) UITextField *digitsTextField;
 
 
-- (void)showOKButton:(BOOL)show animated:(BOOL)animated completion:(void (^)(BOOL finished))completion;
+- (void)showDeleteButton:(BOOL)show animated:(BOOL)animated completion:(void (^)(BOOL finished))completion;
 
 - (void)updateDetailLabelWithString:(NSString *)string animated:(BOOL)animated completion:(void (^)(BOOL finished))completion;
 
@@ -85,7 +78,6 @@
 - (void)animateFailureNotification;
 - (void)resetAnimated:(BOOL)animated;
 
-- (void)updatePinTextfieldWithLength:(NSUInteger)length;
 
 - (id)initWithFrame:(CGRect)frame complexPin:(BOOL)complexPin;
 

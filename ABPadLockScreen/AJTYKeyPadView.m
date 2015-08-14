@@ -117,7 +117,7 @@
         [_okButton addTarget:self
                       action:@selector(deleteButtonAction:)
             forControlEvents:UIControlEventTouchUpInside];
-		[_okButton setTitle:NSLocalizedString(@"x", @"") forState:UIControlStateNormal];
+		[_okButton setTitle:NSLocalizedString(@"DEL", @"") forState:UIControlStateNormal];
 		_okButton.alpha = 0.0f;
 		_okButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
 		
@@ -151,7 +151,7 @@
 
 
 
-- (void)showOKButton:(BOOL)show animated:(BOOL)animated completion:(void (^)(BOOL finished))completion
+- (void)showDeleteButton:(BOOL)show animated:(BOOL)animated completion:(void (^)(BOOL finished))completion
 {
 	__weak AJTYKeyPadView *weakSelf = self;
     [self performAnimations:^{
@@ -247,9 +247,9 @@
         [view setSelected:NO animated:animated completion:nil];
     }
     
-	[self showOKButton:NO animated:animated completion:nil];
+	[self showDeleteButton:NO animated:animated completion:nil];
 	
-	[self updatePinTextfieldWithLength:0];
+//	[self updatePinTextfieldWithLength:0];
 }
 
 -(void) buttonAction:(id)sender
@@ -257,7 +257,7 @@
     ABPadButton * button = sender;
     NSLog(@"Button Clicked");
     _digitsTextField.text = [NSString stringWithFormat:@"%@%ld", self.digitsTextField.text, (long)button.tag];
-    [self showOKButton:YES
+    [self showDeleteButton:YES
               animated:YES
             completion:^(BOOL finished) {
                 ;
@@ -266,7 +266,7 @@
 
 - (void) deleteButtonAction:(id)sender
 {
-    [self showOKButton:NO
+    [self showDeleteButton:NO
               animated:YES
             completion:^(BOOL finished) {
                 _digitsTextField.text = @"";
@@ -378,9 +378,8 @@
         [self.contentView addSubview:_digitsTextField];
         _okButton.frame = CGRectMake(_digitsTextField.frame.origin.x + _digitsTextField.frame.size.width + 10,
                                      (_digitsTextField.frame.origin.y + _digitsTextField.frame.size.height) / 2,
-                                     _digitsTextField.frame.size.height,
+                                      _digitsTextField.frame.size.height,
                                      _digitsTextField.frame.size.height);
-#warning Remove completely!
 		[self.contentView addSubview:_okButton];
 	}
 	else
@@ -404,13 +403,10 @@
 {
     CGFloat horizontalButtonPadding = 20;
     CGFloat verticalButtonPadding = 10;
-    
     CGFloat buttonRowWidth = (ABPadButtonWidth * 3) + (horizontalButtonPadding * 2);
-    
     CGFloat lefButtonLeft = ([self correctWidth]/2) - (buttonRowWidth/2) + 0.5;
     CGFloat centerButtonLeft = lefButtonLeft + ABPadButtonWidth + horizontalButtonPadding;
     CGFloat rightButtonLeft = centerButtonLeft + ABPadButtonWidth + horizontalButtonPadding;
-    #warning 0
     CGFloat topRowTop = self.detailLabel.frame.origin.y + self.detailLabel.frame.size.height + 0;
     
     if (!IS_IPHONE5) topRowTop = self.detailLabel.frame.origin.y + self.detailLabel.frame.size.height + 10;
@@ -452,10 +448,6 @@
 	}
 	
 }
-
-
-
-
 
 - (void)performAnimations:(void (^)(void))animations animated:(BOOL)animated completion:(void (^)(BOOL finished))completion
 {
