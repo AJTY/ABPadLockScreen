@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		350F6C8B1B7DC1F200B6BA35 /* AJTYKeyPadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 350F6C8A1B7DC1F200B6BA35 /* AJTYKeyPadViewController.m */; };
+		350F6C8E1B7DC45600B6BA35 /* AJTYKeyPadAbstractViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 350F6C8D1B7DC45600B6BA35 /* AJTYKeyPadAbstractViewController.m */; };
+		350F6C951B7DC56900B6BA35 /* AJTYKeyPadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 350F6C941B7DC56900B6BA35 /* AJTYKeyPadView.m */; };
 		9C79B0D8188A184A00D465D8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C79B0D7188A184A00D465D8 /* Foundation.framework */; };
 		9C79B0DA188A184A00D465D8 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C79B0D9188A184A00D465D8 /* CoreGraphics.framework */; };
 		9C79B0DC188A184A00D465D8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C79B0DB188A184A00D465D8 /* UIKit.framework */; };
@@ -45,6 +48,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		350F6C891B7DC1F200B6BA35 /* AJTYKeyPadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AJTYKeyPadViewController.h; sourceTree = "<group>"; };
+		350F6C8A1B7DC1F200B6BA35 /* AJTYKeyPadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AJTYKeyPadViewController.m; sourceTree = "<group>"; };
+		350F6C8C1B7DC45600B6BA35 /* AJTYKeyPadAbstractViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AJTYKeyPadAbstractViewController.h; sourceTree = "<group>"; };
+		350F6C8D1B7DC45600B6BA35 /* AJTYKeyPadAbstractViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AJTYKeyPadAbstractViewController.m; sourceTree = "<group>"; };
+		350F6C931B7DC56900B6BA35 /* AJTYKeyPadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AJTYKeyPadView.h; sourceTree = "<group>"; };
+		350F6C941B7DC56900B6BA35 /* AJTYKeyPadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AJTYKeyPadView.m; sourceTree = "<group>"; };
 		9C79B0D4188A184A00D465D8 /* ABPadLockScreenDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ABPadLockScreenDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C79B0D7188A184A00D465D8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		9C79B0D9188A184A00D465D8 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -110,6 +119,52 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		350F6C8F1B7DC4F700B6BA35 /* ABPadLockScreen */ = {
+			isa = PBXGroup;
+			children = (
+				9CC50D37188A803200DBC969 /* ABPadLockScreenSetupViewController.h */,
+				9CC50D38188A803200DBC969 /* ABPadLockScreenSetupViewController.m */,
+				9CC50D27188A797400DBC969 /* ABPadLockScreenViewController.h */,
+				9CC50D28188A797400DBC969 /* ABPadLockScreenViewController.m */,
+				9CC50D34188A7C2100DBC969 /* ABPadLockScreenAbstractViewController.h */,
+				9CC50D35188A7C2100DBC969 /* ABPadLockScreenAbstractViewController.m */,
+			);
+			name = ABPadLockScreen;
+			sourceTree = "<group>";
+		};
+		350F6C901B7DC50C00B6BA35 /* AJTYKeyPad */ = {
+			isa = PBXGroup;
+			children = (
+				350F6C891B7DC1F200B6BA35 /* AJTYKeyPadViewController.h */,
+				350F6C8A1B7DC1F200B6BA35 /* AJTYKeyPadViewController.m */,
+				350F6C8C1B7DC45600B6BA35 /* AJTYKeyPadAbstractViewController.h */,
+				350F6C8D1B7DC45600B6BA35 /* AJTYKeyPadAbstractViewController.m */,
+			);
+			name = AJTYKeyPad;
+			sourceTree = "<group>";
+		};
+		350F6C911B7DC52E00B6BA35 /* ABPadLock */ = {
+			isa = PBXGroup;
+			children = (
+				9CC50D25188A797400DBC969 /* ABPadLockScreenView.h */,
+				9CC50D26188A797400DBC969 /* ABPadLockScreenView.m */,
+				9CC50D21188A797400DBC969 /* ABPadButton.h */,
+				9CC50D22188A797400DBC969 /* ABPadButton.m */,
+				9CC50D29188A797400DBC969 /* ABPinSelectionView.h */,
+				9CC50D2A188A797400DBC969 /* ABPinSelectionView.m */,
+			);
+			name = ABPadLock;
+			sourceTree = "<group>";
+		};
+		350F6C921B7DC53B00B6BA35 /* AJTYKeyPad */ = {
+			isa = PBXGroup;
+			children = (
+				350F6C931B7DC56900B6BA35 /* AJTYKeyPadView.h */,
+				350F6C941B7DC56900B6BA35 /* AJTYKeyPadView.m */,
+			);
+			name = AJTYKeyPad;
+			sourceTree = "<group>";
+		};
 		9C79B0CB188A184A00D465D8 = {
 			isa = PBXGroup;
 			children = (
@@ -220,12 +275,8 @@
 		9CC50D30188A797700DBC969 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				9CC50D37188A803200DBC969 /* ABPadLockScreenSetupViewController.h */,
-				9CC50D38188A803200DBC969 /* ABPadLockScreenSetupViewController.m */,
-				9CC50D27188A797400DBC969 /* ABPadLockScreenViewController.h */,
-				9CC50D28188A797400DBC969 /* ABPadLockScreenViewController.m */,
-				9CC50D34188A7C2100DBC969 /* ABPadLockScreenAbstractViewController.h */,
-				9CC50D35188A7C2100DBC969 /* ABPadLockScreenAbstractViewController.m */,
+				350F6C901B7DC50C00B6BA35 /* AJTYKeyPad */,
+				350F6C8F1B7DC4F700B6BA35 /* ABPadLockScreen */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -233,12 +284,8 @@
 		9CC50D31188A797E00DBC969 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				9CC50D25188A797400DBC969 /* ABPadLockScreenView.h */,
-				9CC50D26188A797400DBC969 /* ABPadLockScreenView.m */,
-				9CC50D21188A797400DBC969 /* ABPadButton.h */,
-				9CC50D22188A797400DBC969 /* ABPadButton.m */,
-				9CC50D29188A797400DBC969 /* ABPinSelectionView.h */,
-				9CC50D2A188A797400DBC969 /* ABPinSelectionView.m */,
+				350F6C921B7DC53B00B6BA35 /* AJTYKeyPad */,
+				350F6C911B7DC52E00B6BA35 /* ABPadLock */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -344,11 +391,14 @@
 				9CF11615188AA60400C86C0A /* ExampleViewController.m in Sources */,
 				9CC50D36188A7C2100DBC969 /* ABPadLockScreenAbstractViewController.m in Sources */,
 				9C79B10C188A18A100D465D8 /* ABPadLockScreenAppDelegate.m in Sources */,
+				350F6C8B1B7DC1F200B6BA35 /* AJTYKeyPadViewController.m in Sources */,
 				9CC50D2B188A797400DBC969 /* ABPadButton.m in Sources */,
 				9CC50D2F188A797400DBC969 /* ABPinSelectionView.m in Sources */,
 				9CC50D2E188A797400DBC969 /* ABPadLockScreenViewController.m in Sources */,
+				350F6C951B7DC56900B6BA35 /* AJTYKeyPadView.m in Sources */,
 				9C79B0E4188A184A00D465D8 /* main.m in Sources */,
 				9CC50D1D188A73D100DBC969 /* UIColor+HexValue.m in Sources */,
+				350F6C8E1B7DC45600B6BA35 /* AJTYKeyPadAbstractViewController.m in Sources */,
 				9CC50D2D188A797400DBC969 /* ABPadLockScreenView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

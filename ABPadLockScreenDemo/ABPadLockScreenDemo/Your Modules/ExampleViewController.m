@@ -11,12 +11,15 @@
 #import "ABPadButton.h"
 #import "ABPinSelectionView.h"
 #import "UIColor+HexValue.h"
+#import "AJTYKeyPadViewController.h"
 
 @interface ExampleViewController ()
 
 @property (nonatomic, strong) NSString *thePin;
 - (IBAction)setPin:(id)sender;
 - (IBAction)lockApp:(id)sender;
+- (IBAction)keypad:(id)sender;
+
 
 @end
 
@@ -80,6 +83,22 @@
 //	backgroundView.clipsToBounds = YES;
 //	[lockScreen setBackgroundView:backgroundView];
     
+    [self presentViewController:lockScreen animated:YES completion:nil];
+}
+
+- (IBAction)keypad:(id)sender {
+    AJTYKeyPadViewController *lockScreen = [[AJTYKeyPadViewController alloc] initWithDelegate:self complexPin:YES];
+    [lockScreen setAllowedAttempts:3];
+
+    lockScreen.modalPresentationStyle = UIModalPresentationFullScreen;
+    lockScreen.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+
+    //	Example using an image
+    //	UIImageView* backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"wallpaper"]];
+    //	backgroundView.contentMode = UIViewContentModeScaleAspectFill;
+    //	backgroundView.clipsToBounds = YES;
+    //	[lockScreen setBackgroundView:backgroundView];
+
     [self presentViewController:lockScreen animated:YES completion:nil];
 }
 
