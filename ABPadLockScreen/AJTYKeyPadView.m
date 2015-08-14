@@ -425,7 +425,7 @@
 
 	if(self.isComplexPin)
 	{
-		CGFloat textFieldWidth = self.contentView.frame.size.width - 10;
+		CGFloat textFieldWidth = self.frame.size.width - 10;
 
 //		_digitsTextField.frame = CGRectMake((self.correctWidth / 2) - (textFieldWidth / 2), pinSelectionTop - 7.5f, textFieldWidth, 50);
 
