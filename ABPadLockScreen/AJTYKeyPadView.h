@@ -24,7 +24,7 @@
 
 @class ABPinSelectionView;
 
-@interface AJTYKeyPadView : UIView
+@interface AJTYKeyPadView : UIView <UITextFieldDelegate>
 
 @property (nonatomic, strong) UIFont *enterPasscodeLabelFont UI_APPEARANCE_SELECTOR;
 @property (nonatomic, strong) UIFont *detailLabelFont UI_APPEARANCE_SELECTOR;
@@ -33,7 +33,7 @@
 
 @property (nonatomic, strong) UIView* backgroundView;
 
-@property (nonatomic, assign) BOOL cancelButtonDisabled;
+
 
 @property (nonatomic, strong, readonly) UILabel *enterPasscodeLabel;
 @property (nonatomic, strong, readonly) UILabel *detailLabel;
@@ -60,8 +60,6 @@
 
 
 
-@property (nonatomic, strong, readonly) UIButton *cancelButton;
-@property (nonatomic, strong, readonly) UIButton *deleteButton;
 
 @property (nonatomic, strong, readonly) UIButton *okButton;
 
@@ -77,8 +75,7 @@
 @property (nonatomic, strong, readonly) NSArray *digitsArray;
 @property (nonatomic, strong, readonly) UITextField *digitsTextField;
 
-- (void)showCancelButtonAnimated:(BOOL)animated completion:(void (^)(BOOL finished))completion;
-- (void)showDeleteButtonAnimated:(BOOL)animated completion:(void (^)(BOOL finished))completion;
+
 - (void)showOKButton:(BOOL)show animated:(BOOL)animated completion:(void (^)(BOOL finished))completion;
 
 - (void)updateDetailLabelWithString:(NSString *)string animated:(BOOL)animated completion:(void (^)(BOOL finished))completion;

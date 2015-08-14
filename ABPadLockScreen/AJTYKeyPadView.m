@@ -1,28 +1,8 @@
-// ABPadLockScreenSetupView.m
-//
-// Copyright (c) 2014 Aron Bury - http://www.aronbury.com
-//
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
-//
-// The above copyright notice and this permission notice shall be included in
-// all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-// THE SOFTWARE.
 
 #import "AJTYKeyPadView.h"
 #import "AJTYKeyPadButton.h"
 #import "ABPinSelectionView.h"
+#import "ABPadButton.h"
 
 #define animationLength 0.15
 #define IS_IPHONE5 ([UIScreen mainScreen].bounds.size.height==568)
@@ -63,9 +43,9 @@
 		
 		if(complexPin)
 		{
-			_digitsTextField = [UITextField new];
+            _digitsTextField = [[UITextField alloc]init];
 			_digitsTextField.enabled = NO;
-			_digitsTextField.secureTextEntry = YES;
+//			_digitsTextField.secureTextEntry = YES;
 			_digitsTextField.textAlignment = NSTextAlignmentCenter;
 			_digitsTextField.borderStyle = UITextBorderStyleNone;
 			_digitsTextField.layer.borderWidth = 1.0f;
@@ -74,14 +54,19 @@
     }
     return self;
 }
-
+- (void)setUpButton:(UIButton *)button left:(CGFloat)left top:(CGFloat)top
+{
+    button.frame = CGRectMake(left, top, ABPadButtonWidth, ABPadButtonHeight);
+    [self.contentView addSubview:button];
+    [self setRoundedView:button toDiameter:75];
+}
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self)
     {
         [self setDefaultStyles];
-        self.cancelButtonDisabled = YES;
+
         self.enterPasscodeLabel.text = @"test";
 		_contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, MIN(frame.size.height, 568.0f))];
 		_contentView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
@@ -114,23 +99,25 @@
 
         _buttonCall = [[AJTYKeyPadButton alloc]initWithFrame:CGRectZero number:10 letters:@"CALL"];
 
+        for (ABPadButton * button in self.buttonArray) {
+            [button addTarget:self
+                       action:@selector(buttonAction:)
+             forControlEvents:UIControlEventTouchUpInside];
+        }
+
 		UIButtonType buttonType = UIButtonTypeSystem;
 		if(NSFoundationVersionNumber <= NSFoundationVersionNumber_iOS_6_1)
 		{
 			buttonType = UIButtonTypeCustom;
 		}
-		
-		_cancelButton = [UIButton buttonWithType:buttonType];
-        [_cancelButton setTitle:NSLocalizedString(@"Cancel", @"") forState:UIControlStateNormal];
-		_cancelButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-        
-        _deleteButton = [UIButton buttonWithType:buttonType];
-        [_deleteButton setTitle:NSLocalizedString(@"Delete", @"") forState:UIControlStateNormal];
-		_deleteButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-        _deleteButton.alpha = 0.0f;
+
         
 		_okButton = [UIButton buttonWithType:buttonType];
-		[_okButton setTitle:NSLocalizedString(@"OK", @"") forState:UIControlStateNormal];
+
+        [_okButton addTarget:self
+                      action:@selector(deleteButtonAction:)
+            forControlEvents:UIControlEventTouchUpInside];
+		[_okButton setTitle:NSLocalizedString(@"x", @"") forState:UIControlStateNormal];
 		_okButton.alpha = 0.0f;
 		_okButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
 		
@@ -160,47 +147,9 @@
              self.buttonSeven, self.buttonEight, self.buttonNine];
 }
 
-- (NSArray *)digitsArray
-{
-	if(self.isComplexPin)
-	{
-		return nil; //If complex, no digit views are available.
-	}
-	
-    if (!_digitsArray)
-    {
-		//Simple pin code is always (SIMPLE_PIN_LENGTH) characters.
-        NSMutableArray *array = [NSMutableArray arrayWithCapacity:SIMPLE_PIN_LENGTH];
-        
-        for (NSInteger i = 0; i < SIMPLE_PIN_LENGTH; i++)
-        {
-            ABPinSelectionView *view = [[ABPinSelectionView alloc] initWithFrame:CGRectZero];
-            [array addObject:view];
-        }
-        
-        _digitsArray = [array copy];
-    }
-    
-    return _digitsArray;
-}
 
-- (void)showCancelButtonAnimated:(BOOL)animated completion:(void (^)(BOOL finished))completion
-{
-    __weak AJTYKeyPadView *weakSelf = self;
-    [self performAnimations:^{
-        weakSelf.cancelButton.alpha = 1.0f;
-        weakSelf.deleteButton.alpha = 0.0f;
-    } animated:animated completion:completion];
-}
 
-- (void)showDeleteButtonAnimated:(BOOL)animated completion:(void (^)(BOOL finished))completion
-{
-    __weak AJTYKeyPadView *weakSelf = self;
-    [self performAnimations:^{
-        weakSelf.cancelButton.alpha = 0.0f;
-        weakSelf.deleteButton.alpha = 1.0f;
-    } animated:animated completion:completion];
-}
+
 
 - (void)showOKButton:(BOOL)show animated:(BOOL)animated completion:(void (^)(BOOL finished))completion
 {
@@ -243,7 +192,6 @@
             button.alpha = 0.2f;
             button.userInteractionEnabled = NO;
         }
-        self.cancelButton.alpha = 0.0f;
         
         for (ABPinSelectionView *view in self.digitsArray) {
             view.alpha = 0.0f;
@@ -299,28 +247,34 @@
         [view setSelected:NO animated:animated completion:nil];
     }
     
-    [self showCancelButtonAnimated:animated completion:nil];
 	[self showOKButton:NO animated:animated completion:nil];
 	
 	[self updatePinTextfieldWithLength:0];
 }
 
-- (void)updatePinTextfieldWithLength:(NSUInteger)length
+-(void) buttonAction:(id)sender
 {
-	if(NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_6_1)
-	{
-		NSAttributedString* digitsTextFieldAttrStr = [[NSAttributedString alloc] initWithString:[@"" stringByPaddingToLength:length withString:@" " startingAtIndex:0]
-																					 attributes:@{NSKernAttributeName: @4,
-																								  NSFontAttributeName: [UIFont boldSystemFontOfSize:18]}];
-		[UIView transitionWithView:self.digitsTextField duration:animationLength options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
-			self.digitsTextField.attributedText = digitsTextFieldAttrStr;
-		} completion:nil];
-	}
-	else
-	{
-		self.digitsTextField.text = [@"" stringByPaddingToLength:length withString:@" " startingAtIndex:0];
-	}
+    ABPadButton * button = sender;
+    NSLog(@"Button Clicked");
+    _digitsTextField.text = [NSString stringWithFormat:@"%@%ld", self.digitsTextField.text, (long)button.tag];
+    [self showOKButton:YES
+              animated:YES
+            completion:^(BOOL finished) {
+                ;
+            }];
 }
+
+- (void) deleteButtonAction:(id)sender
+{
+    [self showOKButton:NO
+              animated:YES
+            completion:^(BOOL finished) {
+                _digitsTextField.text = @"";
+                [self animateFailureNotification];
+            }];
+}
+
+
 
 - (void)setBackgroundView:(UIView *)backgroundView
 {
@@ -380,22 +334,16 @@
 	self.digitsTextField.textColor = [(AJTYKeyPadButton*)self.buttonZero borderColor];
 	self.digitsTextField.layer.borderColor = [(AJTYKeyPadButton*)self.buttonZero borderColor].CGColor;
 	
-	[self updatePinTextfieldWithLength:0];
 	
     self.detailLabel.textColor = self.labelColor;
     self.detailLabel.font = self.detailLabelFont;
-    
-    [self.cancelButton setTitleColor:self.labelColor forState:UIControlStateNormal];
-    self.cancelButton.titleLabel.font = self.deleteCancelLabelFont;
-    
-    [self.deleteButton setTitleColor:self.labelColor forState:UIControlStateNormal];
-    self.deleteButton.titleLabel.font = self.deleteCancelLabelFont;
+
 
 	[self.okButton setTitleColor:self.labelColor forState:UIControlStateNormal];
 }
 
 #pragma mark -
-#pragma mark - Leyout Methods
+#pragma mark - Layout Methods
 - (void)performLayout
 {
     [self layoutTitleArea];
@@ -425,20 +373,26 @@
 
 	if(self.isComplexPin)
 	{
-		CGFloat textFieldWidth = self.frame.size.width - 10;
-
-//		_digitsTextField.frame = CGRectMake((self.correctWidth / 2) - (textFieldWidth / 2), pinSelectionTop - 7.5f, textFieldWidth, 50);
+		CGFloat textFieldWidth = self.frame.size.width - 88;
 
 //CGRectMake(<#CGFloat x#>, <#CGFloat y#>, <#CGFloat width#>, <#CGFloat height#>)
 
 
-        _digitsTextField.frame = CGRectMake((self.correctWidth / 2) - (textFieldWidth / 2), self.contentView.frame.origin.y + 44, textFieldWidth, 50);
+        _digitsTextField.frame = CGRectMake((self.correctWidth / 2) - (textFieldWidth / 2), self.frame.origin.y + 44, textFieldWidth, 50);
 
 
         [self.contentView addSubview:_digitsTextField];
 		
-		_okButton.frame = CGRectMake(_digitsTextField.frame.origin.x + _digitsTextField.frame.size.width + 10, pinSelectionTop - 7.5f, (self.correctWidth - _digitsTextField.frame.size.width) / 2 - 10, 30);
-		
+//		_okButton.frame = CGRectMake(self.frame.size.width - 40,
+//                                     pinSelectionTop - 7.5f,
+//                                     (self.correctWidth - _digitsTextField.frame.size.width) / 2 - 10,
+//                                     30);
+
+        _okButton.frame = CGRectMake(_digitsTextField.frame.origin.x + _digitsTextField.frame.size.width + 10,
+                                     (_digitsTextField.frame.origin.y + _digitsTextField.frame.size.height) / 2,
+                                     _digitsTextField.frame.size.height,
+                                     _digitsTextField.frame.size.height);
+#warning Remove completely!
 		[self.contentView addSubview:_okButton];
 	}
 	else
@@ -509,32 +463,11 @@
 		deleteCancelButtonFrame = CGRectMake(rightButtonLeft, zeroRowTop + (ABPadButtonHeight / 2 - 10), ABPadButtonWidth, 20);
 	}
 	
-    if (!self.cancelButtonDisabled)
-    {
-        self.cancelButton.frame = deleteCancelButtonFrame;
-        [self.contentView addSubview:self.cancelButton];
-    }
-    
-    self.deleteButton.frame = deleteCancelButtonFrame;
-    [self.contentView addSubview:self.deleteButton];
 }
 
-- (void)setUpButton:(UIButton *)button left:(CGFloat)left top:(CGFloat)top
-{
-    button.frame = CGRectMake(left, top, ABPadButtonWidth, ABPadButtonHeight);
-    [self.contentView addSubview:button];
-    [self setRoundedView:button toDiameter:75];
-}
 
-- (void)setUpPinSelectionView:(ABPinSelectionView *)selectionView left:(CGFloat)left top:(CGFloat)top
-{
-    selectionView.frame = CGRectMake(left,
-                                     top,
-                                     ABPinSelectionViewWidth,
-                                     ABPinSelectionViewHeight);
-    [self.contentView addSubview:selectionView];
-    [self setRoundedView:selectionView toDiameter:15];
-}
+
+
 
 - (void)performAnimations:(void (^)(void))animations animated:(BOOL)animated completion:(void (^)(BOOL finished))completion
 {
@@ -576,5 +509,9 @@
     roundedView.clipsToBounds = YES;
     roundedView.layer.cornerRadius = newSize / 2.0;
 }
+
+#pragma mark - UITextFieldDelegate Methods
+
+
 
 @end

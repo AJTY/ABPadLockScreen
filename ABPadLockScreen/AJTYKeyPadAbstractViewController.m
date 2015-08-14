@@ -74,9 +74,6 @@
     self.view = [[AJTYKeyPadView alloc] initWithFrame:bounds complexPin:self.isComplexPin];
 
     [self setUpButtonMapping];
-    [lockScreenView.cancelButton addTarget:self action:@selector(cancelButtonSelected:) forControlEvents:UIControlEventTouchUpInside];
-    [lockScreenView.deleteButton addTarget:self action:@selector(deleteButtonSelected:) forControlEvents:UIControlEventTouchUpInside];
-    [lockScreenView.okButton addTarget:self action:@selector(okButtonSelected:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (NSUInteger)supportedInterfaceOrientations
@@ -141,18 +138,6 @@
     lockScreenView.detailLabel.text = text;
 }
 
-- (void)setCancelButtonText:(NSString *)text
-{
-    [lockScreenView.cancelButton setTitle:text forState:UIControlStateNormal];
-    [lockScreenView.cancelButton sizeToFit];
-}
-
-- (void)setDeleteButtonText:(NSString *)text
-{
-    [lockScreenView.deleteButton setTitle:text forState:UIControlStateNormal];
-    [lockScreenView.deleteButton sizeToFit];
-}
-
 - (void)setEnterPasscodeLabelText:(NSString *)text
 {
     lockScreenView.enterPasscodeLabel.text = text;
@@ -176,11 +161,6 @@
     {
         [button addTarget:self action:@selector(buttonSelected:) forControlEvents:UIControlEventTouchUpInside];
     }
-}
-
-- (void)cancelButtonDisabled:(BOOL)disabled
-{
-    lockScreenView.cancelButtonDisabled = disabled;
 }
 
 - (void)processPin
@@ -211,7 +191,7 @@
 
     if ([self.currentPin length] == 1)
     {
-        [lockScreenView showDeleteButtonAnimated:YES completion:nil];
+//        [lockScreenView showDeleteButtonAnimated:YES completion:nil];
 
         if(self.complexPin)
         {
@@ -246,19 +226,15 @@
 
     if ([self.currentPin length] == 0)
     {
-        [lockScreenView showCancelButtonAnimated:YES completion:nil];
+//        [lockScreenView showCancelButtonAnimated:YES completion:nil];
         [lockScreenView showOKButton:NO animated:YES completion:nil];
     }
 }
 
 - (void)buttonSelected:(UIButton *)sender
 {
-    NSInteger tag = sender.tag;
     if (self.tapSoundEnabled)
-    {
         AudioServicesPlaySystemSound(1105);
-    }
-    [self newPinSelected:tag];
 }
 
 - (void)cancelButtonSelected:(UIButton *)sender

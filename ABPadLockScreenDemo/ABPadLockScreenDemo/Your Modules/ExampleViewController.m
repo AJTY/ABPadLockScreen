@@ -63,6 +63,11 @@
     [self presentViewController:lockScreen animated:YES completion:nil];
 }
 
+-(void)viewDidAppear:(BOOL)animated
+{
+    [self keypad:nil];
+}
+
 - (IBAction)lockApp:(id)sender
 {
     if (!self.thePin)
@@ -93,11 +98,11 @@
     lockScreen.modalPresentationStyle = UIModalPresentationFullScreen;
     lockScreen.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
 
-    //	Example using an image
-    //	UIImageView* backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"wallpaper"]];
-    //	backgroundView.contentMode = UIViewContentModeScaleAspectFill;
-    //	backgroundView.clipsToBounds = YES;
-    //	[lockScreen setBackgroundView:backgroundView];
+//    	Example using an image
+    	UIImageView* backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"wallpaper"]];
+    	backgroundView.contentMode = UIViewContentModeScaleAspectFill;
+    	backgroundView.clipsToBounds = YES;
+    	[lockScreen setBackgroundView:backgroundView];
 
     [self presentViewController:lockScreen animated:YES completion:nil];
 }
