@@ -26,7 +26,7 @@ Pod::Spec.new do |s|
 
   s.source       = { :git => "https://github.com/abury/ABPadLockScreen.git", :tag => s.version.to_s }
   s.source_files  = 'ABPadLockScreen', 'ABPadLockScreen/**/*.{h,m}'
-  spec.resources = ["Images/*.png"]
+  s.resources = ["Images/*.png"]
 
 
   s.requires_arc = true
