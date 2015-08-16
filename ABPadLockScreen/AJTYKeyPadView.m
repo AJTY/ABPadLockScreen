@@ -228,6 +228,7 @@
 - (void)unlockViewAnimated:(BOOL)animated completion:(void (^)(BOOL))completion
 {
     [self performAnimations:^{
+        self.detailLabel.text = @"";
         for (UIButton *button in [self buttonArray])
         {
             button.alpha = 1.0f;
