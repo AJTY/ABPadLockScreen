@@ -13,6 +13,7 @@
 #import "AJTYCallButton.h"
 #import <AudioToolbox/AudioToolbox.h>
 #define animationLength 0.15
+#define IS_IPHONE4s ([UIScreen mainScreen].bounds.size.height==480)
 #define IS_IPHONE5 ([UIScreen mainScreen].bounds.size.height==568)
 #define IS_IOS6_OR_LOWER (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1)
 
@@ -63,7 +64,9 @@
 }
 - (void)setUpButton:(UIButton *)button left:(CGFloat)left top:(CGFloat)top
 {
-    if (IS_IPHONE5) {
+
+
+    if (IS_IPHONE5 || IS_IPHONE4s) {
         button.frame = CGRectMake(left, top, ABPadButtonWidth, ABPadButtonHeight);
         [self.contentView addSubview:button];
         [self setRoundedView:button toDiameter:70];
@@ -196,8 +199,18 @@
     [self.detailLabel.layer addAnimation:animation forKey:@"kCATransitionFade"];
     
     self.detailLabel.text = string;
-	
-    self.detailLabel.frame = CGRectMake(([self correctWidth]/2) - 150, self.digitsTextField.frame.origin.y + self.digitsTextField.frame.size.height + 10, 300, 23);
+
+    if (IS_IPHONE4s) {
+        self.detailLabel.frame = CGRectMake(([self correctWidth]/2) - 150,
+                                            self.digitsTextField.frame.origin.y + self.digitsTextField.frame.size.height,
+                                            300,
+                                            20);
+
+    }
+    self.detailLabel.frame = CGRectMake(([self correctWidth]/2) - 150,
+                                        self.digitsTextField.frame.origin.y + self.digitsTextField.frame.size.height + 10,
+                                        300,
+                                        23);
 }
 
 - (void)lockViewAnimated:(BOOL)animated withMessage:(NSString *)message completion:(void (^)(BOOL))completion
@@ -528,10 +541,11 @@
     CGFloat callRowTop;
 
 
-    if (IS_IPHONE5) {
+    if (IS_IPHONE5 || IS_IPHONE4s) {
 
         horizontalButtonPadding = 20;
         verticalButtonPadding = 5;
+
         buttonRowWidth = (70 * 3) + (horizontalButtonPadding * 2);
         lefButtonLeft = ([self correctWidth]/2) - (buttonRowWidth/2) + 0.5;
         centerButtonLeft = lefButtonLeft + 70 + horizontalButtonPadding;
@@ -557,6 +571,7 @@
 
     }
     if (!IS_IPHONE5) topRowTop = self.detailLabel.frame.origin.y + self.detailLabel.frame.size.height + 10;
+
 
 
     [self setUpButton:self.buttonOne left:lefButtonLeft top:topRowTop];
