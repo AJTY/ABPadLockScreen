@@ -204,7 +204,7 @@
     label.backgroundColor = [UIColor clearColor];
     label.textAlignment = NSTextAlignmentCenter;
 	label.minimumScaleFactor = 1.0;
-    
+
     return label;
 }
 

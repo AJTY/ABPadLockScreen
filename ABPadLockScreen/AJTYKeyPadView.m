@@ -66,8 +66,14 @@
 {
 
 
-    if (IS_IPHONE5 || IS_IPHONE4s) {
-        button.frame = CGRectMake(left, top, ABPadButtonWidth, ABPadButtonHeight);
+    if (IS_IPHONE4s) {
+        button.frame = CGRectMake(left, top, 68, 68);
+        [self.contentView addSubview:button];
+        [self setRoundedView:button toDiameter:68];
+        self.detailLabel.hidden = YES;
+
+    }else if (IS_IPHONE5 ) {
+        button.frame = CGRectMake(left, top, 70, 70);
         [self.contentView addSubview:button];
         [self setRoundedView:button toDiameter:70];
     }else{
@@ -541,7 +547,7 @@
     CGFloat callRowTop;
 
 
-    if (IS_IPHONE5 || IS_IPHONE4s) {
+    if (IS_IPHONE5) {
 
         horizontalButtonPadding = 20;
         verticalButtonPadding = 5;
@@ -556,6 +562,19 @@
         zeroRowTop = bottomRowTop + 70 + verticalButtonPadding;
         callRowTop = zeroRowTop + 70 + verticalButtonPadding;
 
+    }else if (IS_IPHONE4s){
+        horizontalButtonPadding = 20;
+        verticalButtonPadding = 5;
+
+        buttonRowWidth = (68 * 3) + (horizontalButtonPadding * 2);
+        lefButtonLeft = ([self correctWidth]/2) - (buttonRowWidth/2) + 0.5;
+        centerButtonLeft = lefButtonLeft + 68 + horizontalButtonPadding;
+        rightButtonLeft = centerButtonLeft + 68 + horizontalButtonPadding;
+        topRowTop = self.digitsTextField.frame.origin.y + self.digitsTextField.frame.size.height + 0;
+        middleRowTop = topRowTop + 68 + verticalButtonPadding;
+        bottomRowTop = middleRowTop + 68 + verticalButtonPadding;
+        zeroRowTop = bottomRowTop + 68 + verticalButtonPadding;
+        callRowTop = zeroRowTop + 68 + verticalButtonPadding;
     }else{
         horizontalButtonPadding = 20;
         verticalButtonPadding = 10;
@@ -570,7 +589,7 @@
         callRowTop = zeroRowTop + ABPadButtonHeight + verticalButtonPadding;
 
     }
-    if (!IS_IPHONE5) topRowTop = self.detailLabel.frame.origin.y + self.detailLabel.frame.size.height + 10;
+    if (!IS_IPHONE5 && !IS_IPHONE4s) topRowTop = self.detailLabel.frame.origin.y + self.detailLabel.frame.size.height + 10;
 
 
 
