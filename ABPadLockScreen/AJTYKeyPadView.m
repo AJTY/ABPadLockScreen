@@ -63,9 +63,15 @@
 }
 - (void)setUpButton:(UIButton *)button left:(CGFloat)left top:(CGFloat)top
 {
-    button.frame = CGRectMake(left, top, ABPadButtonWidth, ABPadButtonHeight);
-    [self.contentView addSubview:button];
-    [self setRoundedView:button toDiameter:75];
+    if (IS_IPHONE5) {
+        button.frame = CGRectMake(left, top, ABPadButtonWidth, ABPadButtonHeight);
+        [self.contentView addSubview:button];
+        [self setRoundedView:button toDiameter:70];
+    }else{
+        button.frame = CGRectMake(left, top, ABPadButtonWidth, ABPadButtonHeight);
+        [self.contentView addSubview:button];
+        [self setRoundedView:button toDiameter:75];
+    }
 }
 - (id)initWithFrame:(CGRect)frame
 {
@@ -466,6 +472,20 @@
 
 	if(self.isComplexPin)
 	{
+        if (IS_IPHONE5) {
+            CGFloat textFieldWidth = self.frame.size.width - 88;
+            _digitsTextField.frame = CGRectMake((self.correctWidth / 2) - (textFieldWidth / 2),
+                                                self.frame.origin.y + 44,
+                                                textFieldWidth,
+                                                35);
+
+            [self.contentView addSubview:_digitsTextField];
+            _okButton.frame = CGRectMake(_digitsTextField.frame.origin.x + _digitsTextField.frame.size.width + 10,
+                                         (_digitsTextField.frame.origin.y + _digitsTextField.frame.size.height) / 2,
+                                         _digitsTextField.frame.size.height,
+                                         _digitsTextField.frame.size.height);
+        }
+
 		CGFloat textFieldWidth = self.frame.size.width - 88;
         _digitsTextField.frame = CGRectMake((self.correctWidth / 2) - (textFieldWidth / 2), self.frame.origin.y + 44, textFieldWidth, 50);
         [self.contentView addSubview:_digitsTextField];
@@ -473,7 +493,9 @@
                                      (_digitsTextField.frame.origin.y + _digitsTextField.frame.size.height) / 2,
                                       _digitsTextField.frame.size.height,
                                      _digitsTextField.frame.size.height);
-		[self.contentView addSubview:_okButton];
+
+
+        [self.contentView addSubview:_okButton];
 	}
 	else
 	{
@@ -492,21 +514,51 @@
 
 - (void)layoutButtonArea
 {
-    CGFloat horizontalButtonPadding = 20;
-    CGFloat verticalButtonPadding = 10;
-    CGFloat buttonRowWidth = (ABPadButtonWidth * 3) + (horizontalButtonPadding * 2);
-    CGFloat lefButtonLeft = ([self correctWidth]/2) - (buttonRowWidth/2) + 0.5;
-    CGFloat centerButtonLeft = lefButtonLeft + ABPadButtonWidth + horizontalButtonPadding;
-    CGFloat rightButtonLeft = centerButtonLeft + ABPadButtonWidth + horizontalButtonPadding;
-    CGFloat topRowTop = self.detailLabel.frame.origin.y + self.detailLabel.frame.size.height + 0;
-    
+
+    CGFloat horizontalButtonPadding;
+    CGFloat verticalButtonPadding;
+    CGFloat buttonRowWidth;
+    CGFloat lefButtonLeft;
+    CGFloat centerButtonLeft;
+    CGFloat rightButtonLeft;
+    CGFloat topRowTop;
+    CGFloat middleRowTop;
+    CGFloat bottomRowTop;
+    CGFloat zeroRowTop;
+    CGFloat callRowTop;
+
+
+    if (IS_IPHONE5) {
+
+        horizontalButtonPadding = 20;
+        verticalButtonPadding = 5;
+        buttonRowWidth = (70 * 3) + (horizontalButtonPadding * 2);
+        lefButtonLeft = ([self correctWidth]/2) - (buttonRowWidth/2) + 0.5;
+        centerButtonLeft = lefButtonLeft + 70 + horizontalButtonPadding;
+        rightButtonLeft = centerButtonLeft + 70 + horizontalButtonPadding;
+        topRowTop = self.detailLabel.frame.origin.y + self.detailLabel.frame.size.height + 0;
+        middleRowTop = topRowTop + 70 + verticalButtonPadding;
+        bottomRowTop = middleRowTop + 70 + verticalButtonPadding;
+        zeroRowTop = bottomRowTop + 70 + verticalButtonPadding;
+        callRowTop = zeroRowTop + 70 + verticalButtonPadding;
+
+    }else{
+        horizontalButtonPadding = 20;
+        verticalButtonPadding = 10;
+        buttonRowWidth = (ABPadButtonWidth * 3) + (horizontalButtonPadding * 2);
+        lefButtonLeft = ([self correctWidth]/2) - (buttonRowWidth/2) + 0.5;
+        centerButtonLeft = lefButtonLeft + ABPadButtonWidth + horizontalButtonPadding;
+        rightButtonLeft = centerButtonLeft + ABPadButtonWidth + horizontalButtonPadding;
+        topRowTop = self.detailLabel.frame.origin.y + self.detailLabel.frame.size.height + 0;
+        middleRowTop = topRowTop + ABPadButtonHeight + verticalButtonPadding;
+        bottomRowTop = middleRowTop + ABPadButtonHeight + verticalButtonPadding;
+        zeroRowTop = bottomRowTop + ABPadButtonHeight + verticalButtonPadding;
+        callRowTop = zeroRowTop + ABPadButtonHeight + verticalButtonPadding;
+
+    }
     if (!IS_IPHONE5) topRowTop = self.detailLabel.frame.origin.y + self.detailLabel.frame.size.height + 10;
-    
-    CGFloat middleRowTop = topRowTop + ABPadButtonHeight + verticalButtonPadding;
-    CGFloat bottomRowTop = middleRowTop + ABPadButtonHeight + verticalButtonPadding;
-    CGFloat zeroRowTop = bottomRowTop + ABPadButtonHeight + verticalButtonPadding;
-    CGFloat callRowTop = zeroRowTop + ABPadButtonHeight + verticalButtonPadding;
-    
+
+
     [self setUpButton:self.buttonOne left:lefButtonLeft top:topRowTop];
     [self setUpButton:self.buttonTwo left:centerButtonLeft top:topRowTop];
     [self setUpButton:self.buttonThree left:rightButtonLeft top:topRowTop];
