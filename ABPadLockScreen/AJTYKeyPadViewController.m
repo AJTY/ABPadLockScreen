@@ -47,6 +47,8 @@
     return self;
 }
 
+
+
 #pragma mark -
 #pragma mark - Attempts
 - (void)setAllowedAttempts:(NSInteger)allowedAttempts
@@ -93,7 +95,12 @@
         [self.lockScreenDelegate unlockWasSuccessfulForPadLockScreenViewController:self];
     }
 }
-
+-(void)viewWillAppear:(BOOL)animated
+{
+    [lockScreenView lockViewAnimated:YES completion:^(BOOL finished) {
+        ;
+    }];
+}
 - (void)processFailure
 {
     _remainingAttempts --;
@@ -148,6 +155,15 @@
     {
         [self.lockScreenDelegate attemptsExpiredForPadLockScreenViewController:self];
     }
+}
+
+-(void)lockViewAnimated:(BOOL)animated withMessage:(NSString *)message completion:(void (^)(BOOL))completion
+{
+    [lockScreenView lockViewAnimated:animated withMessage:message completion:nil];
+}
+
+- (void)unlockViewAnimated:(BOOL)animated completion:(void (^)(BOOL))completion{
+    [lockScreenView unlockViewAnimated:animated completion:nil];
 }
 
 @end

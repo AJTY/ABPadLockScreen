@@ -33,6 +33,9 @@
 - (void)setPluralAttemptsLeftText:(NSString *)title;
 - (void)setSingleAttemptLeftText:(NSString *)title;
 
+- (void)lockViewAnimated:(BOOL)animated withMessage:(NSString *)message completion:(void (^)(BOOL))completion;
+- (void)unlockViewAnimated:(BOOL)animated completion:(void (^)(BOOL))completion;
+
 @end
 
 @protocol AJTYKeyPadViewControllerDelegate <AJTYKeyPadViewDelegate>

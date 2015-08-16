@@ -59,6 +59,8 @@
 
 - (void)updateDetailLabelWithString:(NSString *)string animated:(BOOL)animated completion:(void (^)(BOOL finished))completion;
 
+- (void)lockViewAnimated:(BOOL)animated withMessage:(NSString*)message completion:(void (^)(BOOL finished))completion;
+- (void)unlockViewAnimated:(BOOL)animated completion:(void (^)(BOOL))completion;
 - (void)lockViewAnimated:(BOOL)animated completion:(void (^)(BOOL finished))completion;
 
 - (void)animateFailureNotification;

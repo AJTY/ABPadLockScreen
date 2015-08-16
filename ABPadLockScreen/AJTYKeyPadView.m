@@ -48,7 +48,6 @@
     if (self)
     {
         _complexPin = complexPin;
-		
 		if(complexPin)
 		{
             _digitsTextField = [[UITextField alloc]init];
@@ -195,7 +194,23 @@
     self.detailLabel.frame = CGRectMake(([self correctWidth]/2) - 150, self.digitsTextField.frame.origin.y + self.digitsTextField.frame.size.height + 10, 300, 23);
 }
 
-- (void)lockViewAnimated:(BOOL)animated completion:(void (^)(BOOL finished))completion
+- (void)lockViewAnimated:(BOOL)animated withMessage:(NSString *)message completion:(void (^)(BOOL))completion
+{
+    [self performAnimations:^{
+        self.detailLabel.text = message;
+        for (UIButton *button in [self buttonArray])
+        {
+            button.alpha = 0.2f;
+            button.userInteractionEnabled = NO;
+        }
+
+        for (ABPinSelectionView *view in self.digitsArray) {
+            view.alpha = 0.0f;
+        }
+    } animated:animated completion:completion];
+}
+
+- (void)lockViewAnimated:(BOOL)animated completion:(void (^)(BOOL))completion
 {
     [self performAnimations:^{
         for (UIButton *button in [self buttonArray])
@@ -203,9 +218,24 @@
             button.alpha = 0.2f;
             button.userInteractionEnabled = NO;
         }
-        
+
         for (ABPinSelectionView *view in self.digitsArray) {
             view.alpha = 0.0f;
+        }
+    } animated:animated completion:completion];
+}
+
+- (void)unlockViewAnimated:(BOOL)animated completion:(void (^)(BOOL))completion
+{
+    [self performAnimations:^{
+        for (UIButton *button in [self buttonArray])
+        {
+            button.alpha = 1.0f;
+            button.userInteractionEnabled = YES;
+        }
+
+        for (ABPinSelectionView *view in self.digitsArray) {
+            view.alpha = 1.0f;
         }
     } animated:animated completion:completion];
 }
@@ -528,6 +558,7 @@
 - (CGFloat)correctHeight
 {
     return _contentView.bounds.size.height;
+
 }
 
 #pragma mark -
@@ -550,7 +581,9 @@
     roundedView.layer.cornerRadius = newSize / 2.0;
 }
 
-#pragma mark - UITextFieldDelegate Methods
+#pragma mark - Delegate Methods
+
+
 
 
 
