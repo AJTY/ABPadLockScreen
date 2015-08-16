@@ -256,17 +256,20 @@
 //	[self updatePinTextfieldWithLength:0];
 }
 
+
+#pragma mark - Button Actions
 -(void) buttonAction:(id)sender
 {
     ABPadButton * button = sender;
     NSLog(@"Button Clicked");
-    _digitsTextField.text = [NSString stringWithFormat:@"%@%ld", self.digitsTextField.text, (long)button.tag];
+    _digitsTextField.text = [NSString stringWithFormat:@"%@%@", self.digitsTextField.text, button.numberLabel.text];
     [self showDeleteButton:YES
               animated:YES
             completion:^(BOOL finished) {
                 ;
             }];
 }
+
 
 - (void) callButtonAction:(id)sender
 {
@@ -276,7 +279,7 @@
         [UIView animateWithDuration:0.6f delay:0.1 options:UIViewAnimationOptionCurveEaseOut animations:^{
             button.autoresizesSubviews = NO;
             [button setTransform:CGAffineTransformRotate(button.transform, -(131 * M_PI/180))];
-            button.layer.backgroundColor = [UIColor greenColor].CGColor;
+            button.layer.backgroundColor = [UIColor colorWithRed:0.38 green:0.86 blue:0.37 alpha:1].CGColor;
         } completion:^(BOOL finished) {
 
             dispatch_queue_t backgroundQueue = dispatch_queue_create("com.ajty.hipmo", 0);

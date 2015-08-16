@@ -26,7 +26,7 @@
     {
         [self setDefaultStyles];
         [self setBackgroundImage:[UIImage imageNamed:@"telephone_icon"] forState:UIControlStateNormal];
-        self.layer.backgroundColor = [UIColor greenColor].CGColor;
+        self.layer.backgroundColor = [UIColor colorWithRed:0.38 green:0.86 blue:0.37 alpha:1].CGColor;
         
         self.accessibilityValue = [NSString stringWithFormat:@"PinButton%ld", (long)number];
         self.tag = 0;
