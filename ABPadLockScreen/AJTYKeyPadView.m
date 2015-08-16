@@ -184,10 +184,8 @@
     [self.detailLabel.layer addAnimation:animation forKey:@"kCATransitionFade"];
     
     self.detailLabel.text = string;
-
-	CGFloat pinSelectionTop = self.digitsTextField.frame.origin.y + self.digitsTextField.frame.size.height + 17.5;
 	
-    self.detailLabel.frame = CGRectMake(([self correctWidth]/2) - 150, pinSelectionTop + 30, 300, 23);
+    self.detailLabel.frame = CGRectMake(([self correctWidth]/2) - 150, self.digitsTextField.frame.origin.y + self.digitsTextField.frame.size.height + 10, 300, 23);
 }
 
 - (void)lockViewAnimated:(BOOL)animated completion:(void (^)(BOOL finished))completion
@@ -274,20 +272,47 @@
 {
     ABPadButton * button = sender;
 
-    if (button.backgroundColor == [UIColor redColor]) {
+    if (button.layer.backgroundColor == [UIColor redColor].CGColor) {
         [UIView animateWithDuration:0.6f delay:0.1 options:UIViewAnimationOptionCurveEaseOut animations:^{
             button.autoresizesSubviews = NO;
             [button setTransform:CGAffineTransformRotate(button.transform, -(131 * M_PI/180))];
-            [button setBackgroundColor:[UIColor greenColor]];
-        } completion:nil];
+            button.layer.backgroundColor = [UIColor greenColor].CGColor;
+        } completion:^(BOOL finished) {
+
+            dispatch_queue_t backgroundQueue = dispatch_queue_create("com.ajty.hipmo", 0);
+
+            dispatch_async(backgroundQueue, ^{
+                [self updateDetailLabelWithString:@"Call Ended"
+                                         animated:YES
+                                       completion:^(BOOL finished) {
+                                       }];
+                sleep(2);
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if ([self.detailLabel.text isEqual:@"Call Ended"]) {
+                        [self updateDetailLabelWithString:@""
+                                                 animated:YES
+                                               completion:nil];
+                        self.digitsTextField.text = @"";
+                    }
+                });    
+            });
+            [self updateDetailLabelWithString:@""
+                                     animated:YES
+                                   completion:nil];
+        }];
     }else{
         [UIView animateWithDuration:0.6f delay:0.1 options:UIViewAnimationOptionCurveEaseOut animations:^{
             button.autoresizesSubviews = NO;
             [button setTransform:CGAffineTransformRotate(button.transform, (131 * M_PI/180))];
-            [button setBackgroundColor:[UIColor redColor]];
-        } completion:nil];
-    }
+            button.layer.backgroundColor = [UIColor redColor].CGColor;
+        } completion:^(BOOL finished) {
+            [self updateDetailLabelWithString:@"Calling..." animated:YES completion:^(BOOL finished) {
+        #warning implement Calling HERE;
+            }];
+        }];
 
+
+    }
 
 }
 
@@ -414,8 +439,13 @@
 				
 
 	}
-	
-    self.detailLabel.frame = CGRectMake(([self correctWidth]/2) - 150, self.digitsTextField.frame.origin.y + self.digitsTextField.frame.size.height + 10, 300, 23);
+
+//CGRectMake(<#CGFloat x#>, <#CGFloat y#>, <#CGFloat width#>, <#CGFloat height#>)
+
+    self.detailLabel.frame = CGRectMake(([self correctWidth]/2) - 150,
+                                        self.digitsTextField.frame.origin.y + self.digitsTextField.frame.size.height + 10,
+                                        300,
+                                        23);
     [self.contentView addSubview:self.detailLabel];
 }
 
