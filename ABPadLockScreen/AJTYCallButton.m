@@ -1,3 +1,10 @@
+//
+//  AJTYCallButton.m
+//  ABPadLockScreenDemo
+//
+//  Created by Tomas Sykora, jr. on 13/08/15.
+//  Copyright (c) 2015 Aron Bury. All rights reserved.
+//
 
 #import "AJTYCallButton.h"
 #import <QuartzCore/QuartzCore.h>
@@ -16,7 +23,6 @@
 
 @implementation AJTYCallButton
 
-#pragma mark -
 #pragma mark - Init Methods
 - (instancetype)initWithFrame:(CGRect)frame number:(NSInteger)number letters:(NSString *)letters
 {
@@ -48,7 +54,6 @@
     return self;
 }
 
-#pragma mark -
 #pragma mark - Lifecycle Methods
 - (void)layoutSubviews
 {
@@ -63,7 +68,6 @@
     [self prepareApperance];
 }
 
-#pragma mark -
 #pragma mark - Helper Methods
 - (void)setDefaultStyles
 {
@@ -117,10 +121,7 @@
     [self addSubview:self.lettersLabel];
 }
 
-#pragma mark -
 #pragma mark - Button Overides
-
-
 - (void)setHighlighted:(BOOL)highlighted
 {
     [super setHighlighted:highlighted];
@@ -129,7 +130,6 @@
     self.lettersLabel.highlighted = highlighted;
 }
 
-#pragma mark -
 #pragma mark - Default View Methods
 - (UILabel *)standardLabel
 {
@@ -143,6 +143,3 @@
 }
 
 @end
-
-//CGFloat const ABPadButtonHeight = 75;
-//CGFloat const ABPadButtonWidth = 75;
