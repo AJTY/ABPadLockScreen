@@ -3,6 +3,7 @@
 #import "AJTYKeyPadButton.h"
 #import "ABPinSelectionView.h"
 #import "ABPadButton.h"
+#import "AJTYCallButton.h"
 #import <AudioToolbox/AudioToolbox.h>
 #define animationLength 0.15
 #define IS_IPHONE5 ([UIScreen mainScreen].bounds.size.height==568)
@@ -97,12 +98,21 @@
 
 
         _buttonCall = [[AJTYKeyPadButton alloc]initWithFrame:CGRectZero number:10 letters:@"CALL"];
+                _buttonCall = [[AJTYCallButton alloc]initWithFrame:CGRectZero number:10 letters:@"CALL"];
 
         for (ABPadButton * button in self.buttonArray) {
+            if (self.buttonCall == button) {
+                continue;
+            }
             [button addTarget:self
                        action:@selector(buttonAction:)
              forControlEvents:UIControlEventTouchUpInside];
         }
+
+        [self.buttonCall addTarget:self
+                            action:@selector(callButtonAction:)
+                  forControlEvents:UIControlEventTouchUpInside];
+
 
 		UIButtonType buttonType = UIButtonTypeSystem;
 		if(NSFoundationVersionNumber <= NSFoundationVersionNumber_iOS_6_1)
@@ -145,9 +155,6 @@
              self.buttonFour, self.buttonFive, self.buttonSix,
              self.buttonSeven, self.buttonEight, self.buttonNine];
 }
-
-
-
 
 
 - (void)showDeleteButton:(BOOL)show animated:(BOOL)animated completion:(void (^)(BOOL finished))completion
@@ -261,6 +268,27 @@
             completion:^(BOOL finished) {
                 ;
             }];
+}
+
+- (void) callButtonAction:(id)sender
+{
+    ABPadButton * button = sender;
+
+    if (button.backgroundColor == [UIColor redColor]) {
+        [UIView animateWithDuration:0.6f delay:0.1 options:UIViewAnimationOptionCurveEaseOut animations:^{
+            button.autoresizesSubviews = NO;
+            [button setTransform:CGAffineTransformRotate(button.transform, -(131 * M_PI/180))];
+            [button setBackgroundColor:[UIColor greenColor]];
+        } completion:nil];
+    }else{
+        [UIView animateWithDuration:0.6f delay:0.1 options:UIViewAnimationOptionCurveEaseOut animations:^{
+            button.autoresizesSubviews = NO;
+            [button setTransform:CGAffineTransformRotate(button.transform, (131 * M_PI/180))];
+            [button setBackgroundColor:[UIColor redColor]];
+        } completion:nil];
+    }
+
+
 }
 
 - (void) deleteButtonAction:(id)sender
