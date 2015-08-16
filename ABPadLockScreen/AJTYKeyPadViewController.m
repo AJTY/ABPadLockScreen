@@ -95,12 +95,7 @@
         [self.lockScreenDelegate unlockWasSuccessfulForPadLockScreenViewController:self];
     }
 }
--(void)viewWillAppear:(BOOL)animated
-{
-    [lockScreenView lockViewAnimated:YES completion:^(BOOL finished) {
-        ;
-    }];
-}
+
 - (void)processFailure
 {
     _remainingAttempts --;
