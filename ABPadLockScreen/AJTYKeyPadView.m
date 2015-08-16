@@ -105,7 +105,7 @@
 
 
         _buttonCall = [[AJTYKeyPadButton alloc]initWithFrame:CGRectZero number:10 letters:@"CALL"];
-                _buttonCall = [[AJTYCallButton alloc]initWithFrame:CGRectZero number:10 letters:@"CALL"];
+                _buttonCall = [[AJTYCallButton alloc]initWithFrame:CGRectZero];
 
         for (ABPadButton * button in self.buttonArray) {
             if (self.buttonCall == button) {

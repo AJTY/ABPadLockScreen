@@ -27,11 +27,8 @@
 
 - (void)setLockScreenTitle:(NSString *)title;
 - (void)setSubtitleText:(NSString *)text;
-- (void)setCancelButtonText:(NSString *)text;
-- (void)setDeleteButtonText:(NSString *)text;
 - (void)setEnterPasscodeLabelText:(NSString *)text;
 
-- (void)cancelButtonDisabled:(BOOL)disabled;
 
 - (void)setBackgroundView:(UIView*)backgroundView;
 
