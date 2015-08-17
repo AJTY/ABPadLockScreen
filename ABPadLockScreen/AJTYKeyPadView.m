@@ -144,11 +144,15 @@
 
         
 		_okButton = [UIButton buttonWithType:buttonType];
+        [_okButton setBackgroundImage:[UIImage imageNamed:@"backspace_icon"]
+                             forState:UIControlStateNormal];
+
+
 
         [_okButton addTarget:self
                       action:@selector(deleteButtonAction:)
             forControlEvents:UIControlEventTouchUpInside];
-		[_okButton setTitle:NSLocalizedString(@"DEL", @"") forState:UIControlStateNormal];
+
 		_okButton.alpha = 0.0f;
 		_okButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
 		
@@ -526,33 +530,23 @@
                                             textFieldWidth,
                                             50);
         [self.contentView addSubview:_digitsTextField];
+
+
+
         _okButton.frame = CGRectMake(_digitsTextField.frame.origin.x + _digitsTextField.frame.size.width + 10,
-                                     (_digitsTextField.frame.origin.y + _digitsTextField.frame.size.height) / 2,
-                                      _digitsTextField.frame.size.height,
-                                     _digitsTextField.frame.size.height);
+                                     _digitsTextField.frame.origin.y + (_digitsTextField.frame.size.height) / 2 - (_digitsTextField.frame.size.height/4),
+                                      _digitsTextField.frame.size.height/2 + 7,
+                                     _digitsTextField.frame.size.height/2);
 
 
         [self.contentView addSubview:_okButton];
 	}
-	else
-	{
-				
-
-	}
-
-//CGRectMake(<#CGFloat x#>, <#CGFloat y#>, <#CGFloat width#>, <#CGFloat height#>)
 
     self.detailLabel.frame = CGRectMake(([self correctWidth]/2) - 150,
                                         self.digitsTextField.frame.origin.y + self.digitsTextField.frame.size.height + 10,
                                         300,
                                         23);
 
-//    if (IS_IPHONE4s) {
-//        self.detailLabel.frame = CGRectMake(([self correctWidth]/2) - 150,
-//                                            self.digitsTextField.frame.origin.y + self.digitsTextField.frame.size.height + 10,
-//                                            300,
-//                                            23);
-//    }
     [self.contentView addSubview:self.detailLabel];
 }
 
