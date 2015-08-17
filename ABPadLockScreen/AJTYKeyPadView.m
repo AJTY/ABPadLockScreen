@@ -15,6 +15,7 @@
 #define animationLength 0.15
 #define IS_IPHONE4s ([UIScreen mainScreen].bounds.size.height==480)
 #define IS_IPHONE5 ([UIScreen mainScreen].bounds.size.height==568)
+#define IS_IPAD ([UIScreen mainScreen].bounds.size.height==1024)
 #define IS_IOS6_OR_LOWER (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1)
 
 @interface AJTYKeyPadView()
@@ -491,6 +492,20 @@
 
 	if(self.isComplexPin)
 	{
+        if (IS_IPHONE4s) {
+            CGFloat textFieldWidth = self.frame.size.width - 88;
+            _digitsTextField.frame = CGRectMake((self.correctWidth / 2) - (textFieldWidth / 2),
+                                                self.frame.origin.y + 10,
+                                                textFieldWidth,
+                                                20);
+
+            [self.contentView addSubview:_digitsTextField];
+            _okButton.frame = CGRectMake(_digitsTextField.frame.origin.x + _digitsTextField.frame.size.width + 10,
+                                         (_digitsTextField.frame.origin.y + _digitsTextField.frame.size.height) / 2,
+                                         _digitsTextField.frame.size.height,
+                                         _digitsTextField.frame.size.height);
+        }
+
         if (IS_IPHONE5) {
             CGFloat textFieldWidth = self.frame.size.width - 88;
             _digitsTextField.frame = CGRectMake((self.correctWidth / 2) - (textFieldWidth / 2),
@@ -505,8 +520,11 @@
                                          _digitsTextField.frame.size.height);
         }
 
-		CGFloat textFieldWidth = self.frame.size.width - 88;
-        _digitsTextField.frame = CGRectMake((self.correctWidth / 2) - (textFieldWidth / 2), self.frame.origin.y + 44, textFieldWidth, 50);
+		CGFloat textFieldWidth = self.contentView.bounds.size.width - 88;
+        _digitsTextField.frame = CGRectMake((self.correctWidth / 2) - (textFieldWidth / 2),
+                                            self.frame.origin.y + 44,
+                                            textFieldWidth,
+                                            50);
         [self.contentView addSubview:_digitsTextField];
         _okButton.frame = CGRectMake(_digitsTextField.frame.origin.x + _digitsTextField.frame.size.width + 10,
                                      (_digitsTextField.frame.origin.y + _digitsTextField.frame.size.height) / 2,
@@ -528,6 +546,13 @@
                                         self.digitsTextField.frame.origin.y + self.digitsTextField.frame.size.height + 10,
                                         300,
                                         23);
+
+//    if (IS_IPHONE4s) {
+//        self.detailLabel.frame = CGRectMake(([self correctWidth]/2) - 150,
+//                                            self.digitsTextField.frame.origin.y + self.digitsTextField.frame.size.height + 10,
+//                                            300,
+//                                            23);
+//    }
     [self.contentView addSubview:self.detailLabel];
 }
 
@@ -575,7 +600,19 @@
         bottomRowTop = middleRowTop + 68 + verticalButtonPadding;
         zeroRowTop = bottomRowTop + 68 + verticalButtonPadding;
         callRowTop = zeroRowTop + 68 + verticalButtonPadding;
-    }else{
+    }else if (IS_IPAD){
+        horizontalButtonPadding = 20;
+        verticalButtonPadding = 10;
+        buttonRowWidth = (ABPadButtonWidth * 3) + (horizontalButtonPadding * 2);
+        lefButtonLeft = ([self correctWidth]/2) - (buttonRowWidth/2) + 0.5;
+        centerButtonLeft = lefButtonLeft + ABPadButtonWidth + horizontalButtonPadding;
+        rightButtonLeft = centerButtonLeft + ABPadButtonWidth + horizontalButtonPadding;
+        topRowTop = self.detailLabel.frame.origin.y + self.detailLabel.frame.size.height + 10;
+        middleRowTop = topRowTop + ABPadButtonHeight + verticalButtonPadding;
+        bottomRowTop = middleRowTop + ABPadButtonHeight + verticalButtonPadding;
+        zeroRowTop = bottomRowTop + ABPadButtonHeight + verticalButtonPadding;
+        callRowTop = zeroRowTop + ABPadButtonHeight + verticalButtonPadding;
+    } else{
         horizontalButtonPadding = 20;
         verticalButtonPadding = 10;
         buttonRowWidth = (ABPadButtonWidth * 3) + (horizontalButtonPadding * 2);
