@@ -54,7 +54,6 @@
 		{
             _digitsTextField = [[UITextField alloc]init];
 			_digitsTextField.enabled = NO;
-//			_digitsTextField.secureTextEntry = YES;
 			_digitsTextField.textAlignment = NSTextAlignmentCenter;
 			_digitsTextField.borderStyle = UITextBorderStyleNone;
 			_digitsTextField.layer.borderWidth = 1.0f;
@@ -65,8 +64,6 @@
 }
 - (void)setUpButton:(UIButton *)button left:(CGFloat)left top:(CGFloat)top
 {
-
-
     if (IS_IPHONE4s) {
         button.frame = CGRectMake(left, top, 68, 68);
         [self.contentView addSubview:button];
@@ -89,17 +86,11 @@
     if (self)
     {
         [self setDefaultStyles];
-
-
 		_contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, MIN(frame.size.height, 568.0f))];
 		_contentView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
 		_contentView.center = self.center;
 		[self addSubview:_contentView];
-        
         _requiresRotationCorrection = NO;
-        
-
-        
         _detailLabel = [self standardLabel];
         
         _buttonOne = [[AJTYKeyPadButton alloc] initWithFrame:CGRectZero number:1 letters:nil];
@@ -347,7 +338,7 @@
         [UIView animateWithDuration:0.6f delay:0.1 options:UIViewAnimationOptionCurveEaseOut animations:^{
             button.autoresizesSubviews = NO;
             [button setTransform:CGAffineTransformRotate(button.transform, -(131 * M_PI/180))];
-            button.layer.backgroundColor = [UIColor colorWithRed:0.38 green:0.86 blue:0.37 alpha:1].CGColor;
+            button.layer.backgroundColor = [UIColor colorWithRed:0.16 green:0.84 blue:0.41 alpha:1].CGColor;
         } completion:^(BOOL finished) {
 
             dispatch_queue_t backgroundQueue = dispatch_queue_create("com.ajty.hipmo", 0);
@@ -389,15 +380,18 @@
 
 - (void) deleteButtonAction:(id)sender
 {
-    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
-    [self showDeleteButton:NO
-              animated:YES
-            completion:^(BOOL finished) {
-                _digitsTextField.text = @"";
-                [self animateFailureNotification];
 
+    if ([_digitsTextField.text length] == 1) {
+        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+        [self showDeleteButton:NO
+                      animated:YES
+                    completion:^(BOOL finished) {
+                        [self animateFailureNotification];
+                    }];
+    }
 
-            }];
+    _digitsTextField.text = [_digitsTextField.text substringToIndex:[_digitsTextField.text length]-1];
+
 }
 
 
