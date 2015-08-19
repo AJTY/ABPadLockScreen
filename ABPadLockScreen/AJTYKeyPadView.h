@@ -11,7 +11,7 @@
 @class ABPinSelectionView;
 @class AJTYKeyPadViewController;
 #import "AJTYKeyPadAbstractViewController.h"
-#import "AJTYKeyPadViewController.h"4
+#import "AJTYKeyPadViewController.h"
 
 
 @interface AJTYKeyPadView : UIView <UITextFieldDelegate>
