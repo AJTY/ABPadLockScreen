@@ -41,30 +41,10 @@
 @protocol AJTYKeyPadViewControllerDelegate <AJTYKeyPadViewDelegate>
 @required
 
-/**
- Called when pin validation is needed
- */
-- (BOOL)padLockScreenViewController:(AJTYKeyPadViewController *)padLockScreenViewController validatePin:(NSString*)pin;
-
-/**
- Called when the unlock was completed successfully
- */
-- (void)unlockWasSuccessfulForPadLockScreenViewController:(AJTYKeyPadViewController *)padLockScreenViewController;
-
-/**
- Called when an unlock was unsuccessfully, providing the entry code and the attempt number
- */
-- (void)unlockWasUnsuccessful:(NSString *)falsePin afterAttemptNumber:(NSInteger)attemptNumber padLockScreenViewController:(AJTYKeyPadViewController *)padLockScreenViewController;
-
-/**
- Called when the user cancels the unlock
- */
-- (void)unlockWasCancelledForPadLockScreenViewController:(AJTYKeyPadViewController *)padLockScreenViewController;
 
 @optional
-/**
- Called when the user has expired their attempts
- */
-- (void)attemptsExpiredForPadLockScreenViewController:(AJTYKeyPadViewController *)padLockScreenViewController;
+
+
+- (void) callButtonTriggered;
 
 @end

@@ -25,10 +25,13 @@
 
 @implementation ExampleViewController
 
+-(void)callButtonTriggered
+{
+
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
     self.title = @"Your Amazing App";
 
 	[[ABPadLockScreenView appearance] setBackgroundColor:[UIColor colorWithHexValue:@"282B35"]];
@@ -103,6 +106,7 @@
     	backgroundView.contentMode = UIViewContentModeScaleAspectFill;
     	backgroundView.clipsToBounds = YES;
     	[lockScreen setBackgroundView:backgroundView];
+
 
     [self presentViewController:lockScreen animated:YES completion:nil];
 }

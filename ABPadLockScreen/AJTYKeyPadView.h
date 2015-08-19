@@ -9,7 +9,7 @@
 #define SIMPLE_PIN_LENGTH 4
 
 @class ABPinSelectionView;
-
+@class AJTYKeyPadViewController;
 @interface AJTYKeyPadView : UIView <UITextFieldDelegate>
 
 @property (nonatomic, strong) UIFont * enterPasscodeLabelFont UI_APPEARANCE_SELECTOR;
@@ -68,5 +68,6 @@
 
 
 - (id)initWithFrame:(CGRect)frame complexPin:(BOOL)complexPin;
+
 
 @end

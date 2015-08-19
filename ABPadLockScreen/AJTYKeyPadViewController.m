@@ -20,10 +20,6 @@
 @property (nonatomic, strong) NSString *pluralAttemptsLeftString;
 @property (nonatomic, strong) NSString *singleAttemptLeftString;
 
-- (BOOL)isPinValid:(NSString *)pin;
-
-- (void)unlockScreen;
-- (void)processFailure;
 - (void)lockScreen;
 
 @end
@@ -75,81 +71,11 @@
 }
 
 #pragma mark -
-#pragma mark - Pin Processing
-- (void)processPin
-{
-    if ([self isPinValid:self.currentPin])
-    {
-        [self unlockScreen];
-    }
-    else
-    {
-        [self processFailure];
-    }
-}
-
-- (void)unlockScreen
-{
-    if ([self.lockScreenDelegate respondsToSelector:@selector(unlockWasSuccessfulForPadLockScreenViewController:)])
-    {
-        [self.lockScreenDelegate unlockWasSuccessfulForPadLockScreenViewController:self];
-    }
-}
-
-- (void)processFailure
-{
-    _remainingAttempts --;
-    _totalAttempts ++;
-    [lockScreenView resetAnimated:YES];
-    [lockScreenView animateFailureNotification];
-
-    if (self.remainingAttempts > 1)
-    {
-        [lockScreenView updateDetailLabelWithString:[NSString stringWithFormat:@"%ld %@", (long)self.remainingAttempts, self.pluralAttemptsLeftString]
-                                           animated:YES completion:nil];
-    }
-    else if (self.remainingAttempts == 1)
-    {
-        [lockScreenView updateDetailLabelWithString:[NSString stringWithFormat:@"%ld %@", (long)self.remainingAttempts, self.singleAttemptLeftString]
-                                           animated:YES completion:nil];
-    }
-    else if (self.remainingAttempts == 0)
-    {
-        [self lockScreen];
-    }
-
-    if ([self.lockScreenDelegate respondsToSelector:@selector(unlockWasUnsuccessful:afterAttemptNumber:padLockScreenViewController:)])
-    {
-        [self.lockScreenDelegate unlockWasUnsuccessful:self.currentPin afterAttemptNumber:self.totalAttempts padLockScreenViewController:self];
-    }
-    self.currentPin = @"";
-
-    if (self.errorVibrateEnabled)
-    {
-        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
-    }
-}
-
-- (BOOL)isPinValid:(NSString *)pin
-{
-    if ([self.lockScreenDelegate respondsToSelector:@selector(padLockScreenViewController:validatePin:)])
-    {
-        return [self.lockScreenDelegate padLockScreenViewController:self validatePin:pin];
-    }
-    return NO;
-}
-
-#pragma mark -
 #pragma mark - Pin Selection
 - (void)lockScreen
 {
     [lockScreenView updateDetailLabelWithString:[NSString stringWithFormat:@"%@", self.lockedOutString] animated:YES completion:nil];
     [lockScreenView lockViewAnimated:YES completion:nil];
-
-    if ([self.lockScreenDelegate respondsToSelector:@selector(attemptsExpiredForPadLockScreenViewController:)])
-    {
-        [self.lockScreenDelegate attemptsExpiredForPadLockScreenViewController:self];
-    }
 }
 
 -(void)lockViewAnimated:(BOOL)animated withMessage:(NSString *)message completion:(void (^)(BOOL))completion

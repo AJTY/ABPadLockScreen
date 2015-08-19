@@ -370,6 +370,7 @@
         } completion:^(BOOL finished) {
             [self updateDetailLabelWithString:@"Calling..." animated:YES completion:^(BOOL finished) {
         #warning implement Calling HERE;
+                [self respondsToSelector:@selector(callButtonTriggered)];
             }];
         }];
 
