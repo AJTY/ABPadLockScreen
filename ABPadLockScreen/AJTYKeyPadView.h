@@ -10,8 +10,12 @@
 
 @class ABPinSelectionView;
 @class AJTYKeyPadViewController;
-@interface AJTYKeyPadView : UIView <UITextFieldDelegate>
+#import "AJTYKeyPadAbstractViewController.h"
+#import "AJTYKeyPadViewController.h"4
 
+
+@interface AJTYKeyPadView : UIView <UITextFieldDelegate>
+@property (nonatomic, weak, readonly) id<AJTYKeyPadViewControllerDelegate> test;
 @property (nonatomic, strong) UIFont * enterPasscodeLabelFont UI_APPEARANCE_SELECTOR;
 @property (nonatomic, strong) UIFont * detailLabelFont        UI_APPEARANCE_SELECTOR;
 @property (nonatomic, strong) UIFont * deleteCancelLabelFont  UI_APPEARANCE_SELECTOR;

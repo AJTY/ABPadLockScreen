@@ -41,10 +41,6 @@
 @protocol AJTYKeyPadViewControllerDelegate <AJTYKeyPadViewDelegate>
 @required
 
-
-@optional
-
-
 - (void) callButtonTriggered;
 
 @end

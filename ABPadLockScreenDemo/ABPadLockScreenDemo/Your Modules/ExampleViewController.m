@@ -34,6 +34,7 @@
     [super viewDidLoad];
     self.title = @"Your Amazing App";
 
+
 	[[ABPadLockScreenView appearance] setBackgroundColor:[UIColor colorWithHexValue:@"282B35"]];
 	
 	UIColor* color = [UIColor colorWithRed:229.0f/255.0f green:180.0f/255.0f blue:46.0f/255.0f alpha:1.0f];

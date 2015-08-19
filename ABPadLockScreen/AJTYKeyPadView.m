@@ -24,6 +24,7 @@
 @property (nonatomic, strong) UIView* contentView;
 @property (nonatomic, strong) UIView* backgroundBlurringView;
 
+
 - (void)setDefaultStyles;
 - (void)prepareAppearance;
 - (void)performLayout;
@@ -41,7 +42,7 @@
 @implementation AJTYKeyPadView
 
 @synthesize digitsArray = _digitsArray;
-
+@synthesize test = _test;
 #pragma mark -
 #pragma mark - Init Methods
 - (id)initWithFrame:(CGRect)frame complexPin:(BOOL)complexPin
@@ -370,11 +371,19 @@
         } completion:^(BOOL finished) {
             [self updateDetailLabelWithString:@"Calling..." animated:YES completion:^(BOOL finished) {
         #warning implement Calling HERE;
-                [self respondsToSelector:@selector(callButtonTriggered)];
+
+
             }];
         }];
 
 
+    }
+
+
+    [self.test performSelector:@selector(callButtonTriggered)];
+
+    if([self.test respondsToSelector:@selector(callButtonTriggered)]) {
+        [_test callButtonTriggered];
     }
 
 }
