@@ -13,7 +13,6 @@
 #import "AJTYKeyPadAbstractViewController.h"
 #import "AJTYKeyPadViewController.h"
 
-
 @interface AJTYKeyPadView : UIView <UITextFieldDelegate>
 @property (nonatomic, weak, readonly) id<AJTYKeyPadViewControllerDelegate> test;
 @property (nonatomic, strong) UIFont * enterPasscodeLabelFont UI_APPEARANCE_SELECTOR;
