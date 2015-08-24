@@ -14,7 +14,7 @@
 #import <AudioToolbox/AudioToolbox.h>
 #define animationLength 0.15
 #define IS_IPHONE4s ([UIScreen mainScreen].bounds.size.height==480)
-#define IS_IPHONE5 ([UIScreen mainScreen].bounds.size.height==568)
+#define IS_IPHONE5 ([UIScreen mainScreen].bounds.size.height>=568)
 #define IS_IPAD ([UIScreen mainScreen].bounds.size.height==1024)
 #define IS_IOS6_OR_LOWER (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1)
 
@@ -611,17 +611,31 @@
         zeroRowTop = bottomRowTop + ABPadButtonHeight + verticalButtonPadding;
         callRowTop = zeroRowTop + ABPadButtonHeight + verticalButtonPadding;
     } else{
+//        horizontalButtonPadding = 20;
+//        verticalButtonPadding = 10;
+//        buttonRowWidth = (ABPadButtonWidth * 3) + (horizontalButtonPadding * 2);
+//        lefButtonLeft = ([self correctWidth]/2) - (buttonRowWidth/2) + 0.5;
+//        centerButtonLeft = lefButtonLeft + ABPadButtonWidth + horizontalButtonPadding;
+//        rightButtonLeft = centerButtonLeft + ABPadButtonWidth + horizontalButtonPadding;
+//        topRowTop = self.detailLabel.frame.origin.y + self.detailLabel.frame.size.height + 0;
+//        middleRowTop = topRowTop + ABPadButtonHeight + verticalButtonPadding;
+//        bottomRowTop = middleRowTop + ABPadButtonHeight + verticalButtonPadding;
+//        zeroRowTop = bottomRowTop + ABPadButtonHeight + verticalButtonPadding;
+//        callRowTop = zeroRowTop + ABPadButtonHeight + verticalButtonPadding;
+
         horizontalButtonPadding = 20;
-        verticalButtonPadding = 10;
-        buttonRowWidth = (ABPadButtonWidth * 3) + (horizontalButtonPadding * 2);
+        verticalButtonPadding = 5;
+
+        buttonRowWidth = (70 * 3) + (horizontalButtonPadding * 2);
         lefButtonLeft = ([self correctWidth]/2) - (buttonRowWidth/2) + 0.5;
-        centerButtonLeft = lefButtonLeft + ABPadButtonWidth + horizontalButtonPadding;
-        rightButtonLeft = centerButtonLeft + ABPadButtonWidth + horizontalButtonPadding;
-        topRowTop = self.detailLabel.frame.origin.y + self.detailLabel.frame.size.height + 0;
-        middleRowTop = topRowTop + ABPadButtonHeight + verticalButtonPadding;
-        bottomRowTop = middleRowTop + ABPadButtonHeight + verticalButtonPadding;
-        zeroRowTop = bottomRowTop + ABPadButtonHeight + verticalButtonPadding;
-        callRowTop = zeroRowTop + ABPadButtonHeight + verticalButtonPadding;
+        centerButtonLeft = lefButtonLeft + 70 + horizontalButtonPadding;
+        rightButtonLeft = centerButtonLeft + 70 + horizontalButtonPadding;
+
+        topRowTop = self.detailLabel.frame.origin.y + self.detailLabel.frame.size.height + 10;
+        middleRowTop = topRowTop + 70 + verticalButtonPadding;
+        bottomRowTop = middleRowTop + 70 + verticalButtonPadding;
+        zeroRowTop = bottomRowTop + 70 + verticalButtonPadding;
+        callRowTop = zeroRowTop + 70 + verticalButtonPadding;
 
     }
     if (!IS_IPHONE5 && !IS_IPHONE4s) topRowTop = self.detailLabel.frame.origin.y + self.detailLabel.frame.size.height + 10;
