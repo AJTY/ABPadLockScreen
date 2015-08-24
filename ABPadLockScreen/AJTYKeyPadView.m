@@ -589,6 +589,8 @@
         horizontalButtonPadding = 20;
         verticalButtonPadding = 5;
 
+        self.digitsTextField.frame = CGRectMake(self.digitsTextField.frame.origin.x , self.frame.origin.y + [[UIApplication sharedApplication] statusBarFrame].size.height, self.digitsTextField.frame.size.width, self.digitsTextField.frame.size.height);
+
         buttonRowWidth = (68 * 3) + (horizontalButtonPadding * 2);
         lefButtonLeft = ([self correctWidth]/2) - (buttonRowWidth/2) + 0.5;
         centerButtonLeft = lefButtonLeft + 68 + horizontalButtonPadding;
