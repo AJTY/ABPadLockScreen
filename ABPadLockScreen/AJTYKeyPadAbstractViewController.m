@@ -71,6 +71,7 @@
     }
 
     self.view = [[AJTYKeyPadView alloc] initWithFrame:bounds complexPin:self.isComplexPin];
+    [lockScreenView.buttonCall addTarget:self action:@selector(callStarted:) forControlEvents:UIControlEventTouchUpInside];
 
     [self setUpButtonMapping];
 }
@@ -254,4 +255,20 @@
     [self processPin];
 }
 
+- (void) callStarted:(UIButton *)sender
+{
+    if (!(sender.layer.backgroundColor == [UIColor redColor].CGColor) ) {
+        if ([self.delegate respondsToSelector:@selector(callEndedDelegate)]){
+            [self.delegate callEndedDelegate];
+        }
+    }else{
+        if ([self.delegate respondsToSelector:@selector(callStartedDelegate)]){
+            [self.delegate callStartedDelegate];
+        }
+    }
+
+
+
+
+}
 @end

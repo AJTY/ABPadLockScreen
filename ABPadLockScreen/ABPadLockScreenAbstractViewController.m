@@ -286,6 +286,10 @@
 - (void)okButtonSelected:(UIButton *)sender
 {
 	[self processPin];
+    if ([self.delegate respondsToSelector:@selector(unlockWasCancelledForPadLockScreenViewController:)])
+    {
+        [self.delegate unlockWasCancelledForPadLockScreenViewController:self];
+    }
 }
 
 @end

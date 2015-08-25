@@ -39,5 +39,6 @@
 @protocol AJTYKeyPadViewDelegate <NSObject>
 @required
 - (void)unlockWasCancelledForPadLockScreenViewController:(AJTYKeyPadAbstractViewController *)padLockScreenViewController;
-
+- (void) callStartedDelegate;
+- (void) callEndedDelegate;
 @end

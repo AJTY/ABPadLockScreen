@@ -69,7 +69,7 @@
 
 -(void)viewDidAppear:(BOOL)animated
 {
-    [self keypad:nil];
+//    [self keypad:nil];
 }
 
 - (IBAction)lockApp:(id)sender
@@ -147,4 +147,14 @@
     self.thePin = pin;
     NSLog(@"Pin set to pin %@", self.thePin);
 }
+
+-(void)callStartedDelegate{
+    
+}
+
+- (void) callEndedDelegate
+{
+
+}
+
 @end
