@@ -22,7 +22,6 @@
 @property (nonatomic, assign, readonly) NSInteger remainingAttempts;
 
 
-
 - (void)setLockedOutText:(NSString *)title;
 - (void)lockViewAnimated:(BOOL)animated withMessage:(NSString *)message completion:(void (^)(BOOL))completion;
 - (void)unlockViewAnimated:(BOOL)animated completion:(void (^)(BOOL))completion;

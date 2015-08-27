@@ -17,26 +17,22 @@
 @property (nonatomic, strong) NSString *currentPin;
 @property (nonatomic, weak) id<AJTYKeyPadViewDelegate> delegate;
 @property (nonatomic, readonly, getter = isComplexPin) BOOL complexPin;
-@property (nonatomic, assign) BOOL tapSoundEnabled; //No by Default
-@property (nonatomic, assign) BOOL errorVibrateEnabled; //No by Default
+@property (nonatomic, assign) BOOL tapSoundEnabled;
+@property (nonatomic, assign) BOOL errorVibrateEnabled;
 @property (nonatomic, strong) NSDate * startDate;
 @property (nonatomic, strong) NSTimer * timer;
+
 - (id)initWithComplexPin:(BOOL)complexPin;
 
-- (void)newPinSelected:(NSInteger)pinNumber;
-- (void)deleteFromPin;
-
+#pragma mark - Visual support
 - (void)setLockScreenTitle:(NSString *)title;
-- (void)setSubtitleText:(NSString *)text;
-- (void)setEnterPasscodeLabelText:(NSString *)text;
-
-
 - (void)setBackgroundView:(UIView*)backgroundView;
 
-- (void)processPin; //Called when the pin has reached maximum digits
+
 
 @end
 
+#pragma mark - Protocol
 @protocol AJTYKeyPadViewDelegate <NSObject>
 @required
 - (void)unlockWasCancelledForPadLockScreenViewController:(AJTYKeyPadAbstractViewController *)padLockScreenViewController;
