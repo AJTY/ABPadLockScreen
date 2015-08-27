@@ -270,9 +270,9 @@
     }else{
         self.startDate = [NSDate date];
         self.timer = [NSTimer scheduledTimerWithTimeInterval:0.25 target:self selector:@selector(timer:) userInfo:nil repeats:YES];
-        if ([self.delegate respondsToSelector:@selector(callStartedDelegate)]){
+        if ([self.delegate respondsToSelector:@selector(callStartedDelegateWithNumber:)]){
 
-            [self.delegate callStartedDelegate];
+            [self.delegate callStartedDelegateWithNumber:lockScreenView.digitsTextField.text];
         }
     }
 

@@ -17,15 +17,12 @@
 @interface AJTYKeyPadViewController ()
 
 @property (nonatomic, strong) NSString *lockedOutString;
-@property (nonatomic, strong) NSString *pluralAttemptsLeftString;
-@property (nonatomic, strong) NSString *singleAttemptLeftString;
 
 - (void)lockScreen;
 
 @end
 
 @implementation AJTYKeyPadViewController
-#pragma mark -
 #pragma mark - Init Methods
 - (instancetype)initWithDelegate:(id<AJTYKeyPadViewControllerDelegate>)delegate complexPin:(BOOL)complexPin
 {
@@ -34,44 +31,17 @@
     {
         self.delegate = delegate;
         _lockScreenDelegate = delegate;
-        _remainingAttempts = -1;
-
-        _lockedOutString = NSLocalizedString(@"You have been locked out.", @"");
-        _pluralAttemptsLeftString = NSLocalizedString(@"attempts left", @"");
-        _singleAttemptLeftString = NSLocalizedString(@"attempt left", @"");
     }
     return self;
 }
 
-
-
-#pragma mark -
-#pragma mark - Attempts
-- (void)setAllowedAttempts:(NSInteger)allowedAttempts
-{
-    _totalAttempts = 0;
-    _remainingAttempts = allowedAttempts;
-}
-
-#pragma mark -
 #pragma mark - Localisation Methods
 - (void)setLockedOutText:(NSString *)title
 {
     _lockedOutString = title;
 }
 
-- (void)setPluralAttemptsLeftText:(NSString *)title
-{
-    _pluralAttemptsLeftString = title;
-}
-
-- (void)setSingleAttemptLeftText:(NSString *)title
-{
-    _singleAttemptLeftString = title;
-}
-
-#pragma mark -
-#pragma mark - Pin Selection
+#pragma mark - Pin Lock Key Pad
 - (void)lockScreen
 {
     [lockScreenView updateDetailLabelWithString:[NSString stringWithFormat:@"%@", self.lockedOutString] animated:YES completion:nil];

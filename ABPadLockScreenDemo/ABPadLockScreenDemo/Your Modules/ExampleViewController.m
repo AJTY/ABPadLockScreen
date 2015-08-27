@@ -97,7 +97,6 @@
 
 - (IBAction)keypad:(id)sender {
     AJTYKeyPadViewController *lockScreen = [[AJTYKeyPadViewController alloc] initWithDelegate:self complexPin:YES];
-    [lockScreen setAllowedAttempts:3];
 
     lockScreen.modalPresentationStyle = UIModalPresentationFullScreen;
     lockScreen.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
@@ -148,7 +147,7 @@
     NSLog(@"Pin set to pin %@", self.thePin);
 }
 
--(void)callStartedDelegate{
+-(void)callStartedDelegateWithNumber:(NSString *)number{
     
 }
 
