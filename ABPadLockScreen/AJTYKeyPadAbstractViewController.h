@@ -19,7 +19,8 @@
 @property (nonatomic, readonly, getter = isComplexPin) BOOL complexPin;
 @property (nonatomic, assign) BOOL tapSoundEnabled; //No by Default
 @property (nonatomic, assign) BOOL errorVibrateEnabled; //No by Default
-
+@property (nonatomic, strong) NSDate * startDate;
+@property (nonatomic, strong) NSTimer * timer;
 - (id)initWithComplexPin:(BOOL)complexPin;
 
 - (void)newPinSelected:(NSInteger)pinNumber;
@@ -40,5 +41,5 @@
 @required
 - (void)unlockWasCancelledForPadLockScreenViewController:(AJTYKeyPadAbstractViewController *)padLockScreenViewController;
 - (void) callStartedDelegate;
-- (void) callEndedDelegate;
+- (void) callEndedDelegateWithTime:(NSString *)timeString;
 @end

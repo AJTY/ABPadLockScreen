@@ -258,11 +258,20 @@
 - (void) callStarted:(UIButton *)sender
 {
     if (!(sender.layer.backgroundColor == [UIColor redColor].CGColor) ) {
-        if ([self.delegate respondsToSelector:@selector(callEndedDelegate)]){
-            [self.delegate callEndedDelegate];
+        NSString * timeElapsed = [self timer:self.timer];
+        if ([self.delegate respondsToSelector:@selector(callEndedDelegateWithTime:)]){
+
+            self.startDate = nil;
+            [self.timer invalidate];
+            self.timer = nil;
+            [self.delegate callEndedDelegateWithTime:timeElapsed];
+
         }
     }else{
+        self.startDate = [NSDate date];
+        self.timer = [NSTimer scheduledTimerWithTimeInterval:0.25 target:self selector:@selector(timer:) userInfo:nil repeats:YES];
         if ([self.delegate respondsToSelector:@selector(callStartedDelegate)]){
+
             [self.delegate callStartedDelegate];
         }
     }
@@ -271,4 +280,24 @@
 
 
 }
+
+- (NSString *)timer:(NSTimer *)timer {
+    NSInteger secondsSinceStart = (NSInteger)[[NSDate date] timeIntervalSinceDate:self.startDate];
+
+    NSInteger seconds = secondsSinceStart % 60;
+    NSInteger minutes = (secondsSinceStart / 60) % 60;
+    NSInteger hours = secondsSinceStart / (60 * 60);
+    NSString *result = nil;
+    if (hours > 0) {
+        result = [NSString stringWithFormat:@"%02ld:%02ld:%02ld", (long)hours, (long)minutes, (long)seconds];
+    }
+    else {
+        result = [NSString stringWithFormat:@"%02ld:%02ld", (long)minutes, (long)seconds];
+    }
+    lockScreenView.detailLabel.text = result;
+
+    return result;
+}
+
+
 @end

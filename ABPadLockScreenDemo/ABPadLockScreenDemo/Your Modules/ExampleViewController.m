@@ -152,7 +152,7 @@
     
 }
 
-- (void) callEndedDelegate
+- (void) callEndedDelegateWithTime:(NSString *)timeString
 {
 
 }

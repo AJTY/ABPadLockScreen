@@ -19,7 +19,10 @@
 #define IS_IOS6_OR_LOWER (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1)
 
 @interface AJTYKeyPadView()
-
+{
+    NSTimer *_timer;
+}
+- (void)_timerFired:(NSTimer *)timer;
 @property (nonatomic, assign) BOOL requiresRotationCorrection;
 @property (nonatomic, strong) UIView* contentView;
 @property (nonatomic, strong) UIView* backgroundBlurringView;
@@ -370,9 +373,6 @@
             button.layer.backgroundColor = [UIColor redColor].CGColor;
         } completion:^(BOOL finished) {
             [self updateDetailLabelWithString:@"Calling..." animated:YES completion:^(BOOL finished) {
-        #warning implement Calling HERE;
-
-
             }];
         }];
 
@@ -719,7 +719,17 @@
     roundedView.layer.cornerRadius = newSize / 2.0;
 }
 
-#pragma mark - Delegate Methods
+#pragma mark Timer
+- (void)startTimer:(id)sender {
+    if (!_timer) {
+        _timer = [NSTimer scheduledTimerWithTimeInterval:1.0f
+                                                  target:self
+                                                selector:@selector(_timerFired:)
+                                                userInfo:nil
+                                                 repeats:YES];
+    }
+}
+
 
 
 
