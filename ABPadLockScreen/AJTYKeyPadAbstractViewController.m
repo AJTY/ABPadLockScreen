@@ -146,6 +146,13 @@
 
 - (void)callStarted:(UIButton *)sender
 {
+    if ([lockScreenView.prepareForRedirect boolValue]) {
+        if ([self.delegate respondsToSelector:@selector(callStartedDelegateWithNumber:)]) {
+            [self.delegate callStartedDelegateWithNumber:(NSString * __nonnull const)lockScreenView.digitsTextField.text];
+        }
+        return;
+    }
+
     if (!(sender.layer.backgroundColor == [UIColor redColor].CGColor) ) {
         NSString * timeElapsed = [self timer:self.timer];
         if ([self.delegate respondsToSelector:@selector(callEndedDelegateWithTime:)]) {
@@ -158,7 +165,7 @@
         self.startDate = [NSDate date];
         self.timer = [NSTimer scheduledTimerWithTimeInterval:0.25 target:self selector:@selector(timer:) userInfo:nil repeats:YES];
         if ([self.delegate respondsToSelector:@selector(callStartedDelegateWithNumber:)]) {
-            [self.delegate callStartedDelegateWithNumber:lockScreenView.digitsTextField.text];
+            [self.delegate callStartedDelegateWithNumber:(NSString * __nonnull const)lockScreenView.digitsTextField.text];
         }
     }
 }

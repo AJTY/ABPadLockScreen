@@ -16,7 +16,7 @@
 @interface AJTYKeyPadViewController : AJTYKeyPadAbstractViewController
 
 - (instancetype)initWithDelegate:(id<AJTYKeyPadViewControllerDelegate>)delegate complexPin:(BOOL)complexPin;
-
+- (instancetype)initWithDelegate:(id<AJTYKeyPadViewControllerDelegate>)delegate complexPin:(BOOL)complexPin prepareForRedirect:(BOOL)redirect;
 @property (nonatomic, weak, readonly) id<AJTYKeyPadViewControllerDelegate> lockScreenDelegate;
 @property (nonatomic, assign, readonly) NSInteger totalAttempts;
 @property (nonatomic, assign, readonly) NSInteger remainingAttempts;
@@ -31,6 +31,6 @@
 @protocol AJTYKeyPadViewControllerDelegate <AJTYKeyPadViewDelegate>
 @required
 
-- (void) callButtonTriggered;
+- (void)callButtonTriggered;
 
 @end

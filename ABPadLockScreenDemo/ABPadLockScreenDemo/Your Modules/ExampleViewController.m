@@ -25,10 +25,7 @@
 
 @implementation ExampleViewController
 
--(void)callButtonTriggered
-{
 
-}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -96,7 +93,7 @@
 }
 
 - (IBAction)keypad:(id)sender {
-    AJTYKeyPadViewController *lockScreen = [[AJTYKeyPadViewController alloc] initWithDelegate:self complexPin:YES];
+    AJTYKeyPadViewController *lockScreen = [[AJTYKeyPadViewController alloc] initWithDelegate:self complexPin:YES prepareForRedirect:YES];
 
     lockScreen.modalPresentationStyle = UIModalPresentationFullScreen;
     lockScreen.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;

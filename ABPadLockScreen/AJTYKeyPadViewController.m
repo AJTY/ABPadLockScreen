@@ -24,6 +24,18 @@
 
 @implementation AJTYKeyPadViewController
 #pragma mark - Init Methods
+- (instancetype)initWithDelegate:(id<AJTYKeyPadViewControllerDelegate>)delegate complexPin:(BOOL)complexPin prepareForRedirect:(BOOL)redirect
+{
+    self = [super initWithComplexPin:complexPin];
+    if (self)
+    {
+        self.delegate = delegate;
+        _lockScreenDelegate = delegate;
+        lockScreenView.prepareForRedirect = [NSNumber numberWithBool:redirect];
+    }
+    return self;
+}
+
 - (instancetype)initWithDelegate:(id<AJTYKeyPadViewControllerDelegate>)delegate complexPin:(BOOL)complexPin
 {
     self = [super initWithComplexPin:complexPin];

@@ -337,34 +337,41 @@
 {
     ABPadButton * button = sender;
 
+    if ([self.prepareForRedirect boolValue]) {
+        [self.test performSelector:@selector(callButtonTriggered)];
+
+        if([self.test respondsToSelector:@selector(callButtonTriggered)]) {
+            [_test callButtonTriggered];
+        }
+        return;
+    }
     if (button.layer.backgroundColor == [UIColor redColor].CGColor) {
-        [UIView animateWithDuration:0.6f delay:0.1 options:UIViewAnimationOptionCurveEaseOut animations:^ {
-                                                                                                 button.autoresizesSubviews = NO;
-                                                                                                 [button setTransform:CGAffineTransformRotate(button.transform, -(131 * M_PI / 180))];
-                                                                                                 button.layer.backgroundColor = [UIColor colorWithRed:0.16 green:0.84 blue:0.41 alpha:1].CGColor;
-                                                                                             } completion:^ (BOOL finished) {
+        [UIView animateWithDuration:0.6f
+                              delay:0.1
+                            options:UIViewAnimationOptionCurveEaseOut animations:^ {
+                                                                          button.autoresizesSubviews = NO;
+                                                                          [button setTransform:CGAffineTransformRotate(button.transform, -(131 * M_PI / 180))];
+                                                                          button.layer.backgroundColor = [UIColor colorWithRed:0.16 green:0.84 blue:0.41 alpha:1].CGColor;
+                                                                      } completion:^ (BOOL finished) {
 
-                                                                                                   dispatch_queue_t backgroundQueue = dispatch_queue_create("com.ajty.hipmo", 0);
+                                                                            dispatch_queue_t backgroundQueue = dispatch_queue_create("com.ajty.hipmo", 0);
 
-                                                                                                   dispatch_async(backgroundQueue, ^ {
-                                                                                                   [self                                                                                    updateDetailLabelWithString:@"Call Ended"
-                                                                                                                            animated:YES
-                                                                                                                          completion:^ (BOOL finished) {
-                                                                                                   }];
-                                                                                                   sleep(2);
-                                                                                                   dispatch_async(dispatch_get_main_queue(), ^ {
-                                                                                                   if ([self.detailLabel.text isEqual:@"Call Ended"]) {
-                                                                                                   [self                                                                            updateDetailLabelWithString:@""
-                                                                                                                            animated:YES
-                                                                                                                          completion:nil];
-                                                                                                   self.digitsTextField.text = @"";
-                                                                                                   }
-                                                                                                   });
-                                                                                                   });
-                                                                                                   [self                                                                                       updateDetailLabelWithString:@""
-                                                                                                                            animated:YES
-                                                                                                                          completion:nil];
-                                                                                               }];
+                                                                            dispatch_async(backgroundQueue, ^ {
+                                                                            [self updateDetailLabelWithString:@"Call Ended" animated:YES completion:^ (BOOL finished) {}];
+                                                                            sleep(2);
+                                                                            dispatch_async(dispatch_get_main_queue(), ^ {
+                                                                            if ([self.detailLabel.text isEqual:@"Call Ended"]) {
+                                                                            [self                                  updateDetailLabelWithString:@""
+                                                                                  animated:YES
+                                                                                completion:nil];
+                                                                            self.digitsTextField.text = @"";
+                                                                            }
+                                                                            });
+                                                                            });
+                                                                            [self                                             updateDetailLabelWithString:@""
+                                                                                  animated:YES
+                                                                                completion:nil];
+                                                                        }];
     }else{
         [UIView animateWithDuration:0.6f delay:0.1 options:UIViewAnimationOptionCurveEaseOut animations:^ {
                                                                                                  button.autoresizesSubviews = NO;

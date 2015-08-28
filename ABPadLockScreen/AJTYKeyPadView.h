@@ -44,6 +44,7 @@
 @property (nonatomic, strong, readonly) UIButton *buttonCall;
 
 @property (nonatomic, strong, readonly) UIButton *okButton;
+@property (nonatomic, strong) NSNumber * prepareForRedirect;
 
 /*
  Lazy loaded array that returns all the buttons ordered from 0-9
