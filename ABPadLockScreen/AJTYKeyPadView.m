@@ -324,13 +324,22 @@
 {
     ABPadButton * button = sender;
 
+    if ([_digitsTextField.text length] < 13) {
+        _digitsTextField.text = [NSString stringWithFormat:@"%@%@", self.digitsTextField.text, button.numberLabel.text];
+        [self showDeleteButton:YES
+                      animated:YES
+                    completion:^ (BOOL finished) {
+                        ;
+                    }];
+
+    }else{
+
+        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+        [self animateFailureNotification];
+
+    }
+
     NSLog(@"Button Clicked");
-    _digitsTextField.text = [NSString stringWithFormat:@"%@%@", self.digitsTextField.text, button.numberLabel.text];
-    [self showDeleteButton:YES
-                  animated:YES
-                completion:^ (BOOL finished) {
-                    ;
-                }];
 }
 
 - (void)callButtonAction:(id)sender
