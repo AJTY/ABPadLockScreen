@@ -29,9 +29,7 @@
     if (self)
     {
         [self setDefaultStyles];
-        [self setBackgroundImage:[UIImage imageNamed:@"telephone_icon"] forState:UIControlStateNormal];
-        self.layer.backgroundColor = [UIColor colorWithRed:0.16 green:0.84 blue:0.41 alpha:1].CGColor;
-        self.layer.borderWidth = 1.5f;
+        [self setBackgroundImage:[UIImage imageNamed:@"hang_up"] forState:UIControlStateNormal];
     }
     return self;
 }
