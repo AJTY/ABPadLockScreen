@@ -47,6 +47,13 @@
     return self;
 }
 
+#pragma mark - Lifecycle
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    lockScreenView.digitsTextField.text = @"";
+}
+
 #pragma mark - Localisation Methods
 - (void)setLockedOutText:(NSString *)title
 {
