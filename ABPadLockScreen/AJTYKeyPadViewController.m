@@ -52,6 +52,7 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     lockScreenView.digitsTextField.text = @"";
+    [lockScreenView showDeleteButton:NO animated:NO completion:nil];
 }
 
 #pragma mark - Localisation Methods
