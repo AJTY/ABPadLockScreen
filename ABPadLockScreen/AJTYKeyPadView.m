@@ -170,7 +170,7 @@
 - (NSArray *)buttonArray
 {
     return @[self.buttonCall,
-             self.buttonHash,self.buttonZero, self.buttonStar,
+             self.buttonStar,self.buttonZero, self.buttonHash,
              self.buttonOne, self.buttonTwo, self.buttonThree,
              self.buttonFour, self.buttonFive, self.buttonSix,
              self.buttonSeven, self.buttonEight, self.buttonNine];
