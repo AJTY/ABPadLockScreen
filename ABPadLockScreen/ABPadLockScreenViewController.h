@@ -49,7 +49,7 @@
 @end
 
 @protocol ABPadLockScreenViewControllerDelegate <ABPadLockScreenDelegate>
-@required
+@optional
 
 /**
  Called when pin validation is needed
@@ -71,7 +71,7 @@
  */
 - (void)unlockWasCancelledForPadLockScreenViewController:(ABPadLockScreenViewController *)padLockScreenViewController;
 
-@optional
+
 /**
  Called when the user has expired their attempts
  */
