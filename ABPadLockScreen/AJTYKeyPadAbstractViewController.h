@@ -35,7 +35,7 @@
 #pragma mark - Protocol
 @protocol AJTYKeyPadViewDelegate <NSObject>
 @required
-- (void)unlockWasCancelledForPadLockScreenViewController:(AJTYKeyPadAbstractViewController *)padLockScreenViewController;
+
 - (void) callStartedDelegateWithNumber:(NSString *) number;
 - (void) callEndedDelegateWithTime:(NSString *)timeString;
 @end
