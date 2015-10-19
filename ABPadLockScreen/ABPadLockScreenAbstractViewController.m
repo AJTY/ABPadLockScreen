@@ -274,7 +274,7 @@
 {
     if ([self.delegate respondsToSelector:@selector(unlockWasCancelledForPadLockScreenViewController:)])
     {
-        [self.delegate unlockWasCancelledForPadLockScreenViewController:self];
+        [self.delegate unlockWasCancelledForPadLockScreenViewControllerFromAbstract:self];
     }
 }
 
