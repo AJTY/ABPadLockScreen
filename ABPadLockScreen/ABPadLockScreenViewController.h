@@ -69,7 +69,7 @@
 /**
  Called when the user cancels the unlock
  */
-- (void)unlockWasCancelledForPadLockScreenViewControllerFromAbstract:(ABPadLockScreenViewController *)padLockScreenViewController;
+- (void)unlockWasCancelledForPadLockScreenViewController:(ABPadLockScreenViewController *)padLockScreenViewController;
 
 
 /**
