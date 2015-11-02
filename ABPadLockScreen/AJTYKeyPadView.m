@@ -670,8 +670,8 @@
     [self setUpButton:self.buttonNine left:rightButtonLeft top:bottomRowTop];
 
     [self setUpButton:self.buttonZero left:centerButtonLeft top:zeroRowTop];
-    [self setUpButton:self.buttonHash left:lefButtonLeft top:zeroRowTop];
-    [self setUpButton:self.buttonStar left:rightButtonLeft top:zeroRowTop];
+    [self setUpButton:self.buttonHash left:rightButtonLeft top:zeroRowTop];
+    [self setUpButton:self.buttonStar left:lefButtonLeft top:zeroRowTop];
 
     [self setUpButton:self.buttonCall left:centerButtonLeft top:callRowTop];
 
